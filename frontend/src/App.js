@@ -148,14 +148,14 @@ const Home = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              {mockDailyChallenges.slice(0, 3).map((challenge) => (
+              {challenges.slice(0, 3).map((challenge) => (
                 <div key={challenge.id} className="flex items-center justify-between p-3 bg-[#836EF9]/10 rounded-lg">
                   <div className="flex-1">
                     <p className="text-white text-sm font-semibold">{challenge.title}</p>
-                    <p className="text-[#FBFAF9] text-xs">{challenge.reward}</p>
+                    <p className="text-[#FBFAF9] text-xs">{challenge.reward?.description || challenge.reward}</p>
                   </div>
                   <Badge className={challenge.completed ? 'bg-green-600' : 'bg-[#A0055D]'}>
-                    {challenge.progress}%
+                    {challenge.progress || 0}%
                   </Badge>
                 </div>
               ))}
