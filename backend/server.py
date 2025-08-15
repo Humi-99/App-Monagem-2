@@ -213,6 +213,26 @@ async def get_daily_challenges(
     
     return challenges
 
+@api_router.get("/challenges/my-progress", response_model=List[Challenge])
+async def get_my_challenge_progress(
+    current_user: User = Depends(get_current_user),
+    db: Database = Depends(get_database)
+):
+    """Get daily challenges with user progress (authenticated)"""
+    challenges = await db.get_daily_challenges()
+    
+    # Add user progress to each challenge
+    for challenge in challenges:
+        user_challenge = await db.get_user_challenge_progress(current_user.id, challenge.id)
+        if user_challenge:
+            challenge.progress = user_challenge.progress
+            challenge.completed = user_challenge.completed
+        else:
+            challenge.progress = 0
+            challenge.completed = False
+    
+    return challenges
+
 @api_router.post("/challenges/complete", response_model=SuccessResponse)
 async def update_challenge_progress(
     progress_data: ChallengeProgress,
