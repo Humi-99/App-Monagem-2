@@ -201,15 +201,15 @@ const Home = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-[#836EF9]">12,847</div>
+                <div className="text-2xl font-bold text-[#836EF9]">{(platformStats.total_players || 12847).toLocaleString()}</div>
                 <div className="text-sm text-[#FBFAF9]">Active Players</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-[#A0055D]">3.2M</div>
+                <div className="text-2xl font-bold text-[#A0055D]">{((platformStats.total_games_played || 3200000) / 1000000).toFixed(1)}M</div>
                 <div className="text-sm text-[#FBFAF9]">Games Played</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-400">$127K</div>
+                <div className="text-2xl font-bold text-yellow-400">{platformStats.total_rewards_distributed || '$127K'}</div>
                 <div className="text-sm text-[#FBFAF9]">Rewards Distributed</div>
               </div>
             </CardContent>
