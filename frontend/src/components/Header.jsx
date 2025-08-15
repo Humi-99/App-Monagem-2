@@ -55,34 +55,36 @@ const Header = ({ onWalletConnect, onProfileClick }) => {
 
           {/* User Actions */}
           <div className="flex items-center space-x-4">
-            {walletConnected && (
+            {isAuthenticated && user && (
               <Card className="hidden md:flex items-center space-x-3 bg-[#836EF9]/10 border-[#836EF9]/30 px-4 py-2">
                 <div className="flex items-center space-x-2">
                   <Coins className="w-4 h-4 text-[#A0055D]" />
-                  <span className="text-white font-semibold">{mockUserData.stats.totalScore}</span>
+                  <span className="text-white font-semibold">{user.total_score || 0}</span>
                 </div>
                 <div className="w-px h-4 bg-[#836EF9]/50"></div>
                 <Badge variant="secondary" className="bg-[#A0055D] text-white">
-                  Level {mockUserData.stats.level}
+                  Level {user.level || 1}
                 </Badge>
               </Card>
             )}
 
             <Button
               onClick={handleWalletConnect}
+              disabled={isLoading}
               className={`
                 px-6 py-2 rounded-lg font-semibold transition-all duration-300
-                ${walletConnected 
+                ${isAuthenticated 
                   ? 'bg-[#A0055D] hover:bg-[#A0055D]/80 text-white' 
                   : 'bg-[#836EF9] hover:bg-[#836EF9]/80 text-white'
                 }
+                ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}
               `}
             >
               <Wallet className="w-4 h-4 mr-2" />
-              {walletConnected ? 'Connected' : 'Connect Wallet'}
+              {isLoading ? 'Connecting...' : isAuthenticated ? 'Connected' : 'Connect Wallet'}
             </Button>
 
-            {walletConnected && (
+            {isAuthenticated && (
               <Button
                 variant="ghost"
                 size="icon"
