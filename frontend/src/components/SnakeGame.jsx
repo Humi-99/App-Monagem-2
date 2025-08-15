@@ -125,9 +125,19 @@ const SnakeGame = ({ onBack, game }) => {
         if (finalScore > highScore) {
           setHighScore(finalScore);
         }
-        // Award tokens based on score
-        const earnedTokens = Math.floor(finalScore / 10);
-        setTokens(prev => prev + earnedTokens);
+        
+        // Calculate game duration
+        const duration = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
+        
+        // Submit score if user is authenticated
+        if (isAuthenticated && finalScore > 0) {
+          submitScore(finalScore, duration);
+        } else {
+          // Award tokens locally for non-authenticated users
+          const earnedTokens = Math.floor(finalScore / 10);
+          setTokens(prev => prev + earnedTokens);
+        }
+        
         return currentSnake;
       }
 
