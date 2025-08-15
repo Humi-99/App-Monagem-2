@@ -4,8 +4,8 @@ import jwt
 from datetime import datetime, timedelta
 from typing import Optional
 import os
-from .models import User
-from .database import Database
+from models import User
+from database import Database
 
 # JWT Configuration
 JWT_SECRET = os.environ.get('JWT_SECRET', 'moangem-secret-key-2024')
