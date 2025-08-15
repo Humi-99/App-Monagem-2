@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
@@ -8,7 +8,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./com
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { Toaster } from "./components/ui/toaster";
-import { mockGames, mockLeaderboard, mockDailyChallenges } from "./components/mockData";
+import { AuthProvider } from "./contexts/AuthContext";
+import gamesService from "./services/games";
+import challengesService from "./services/challenges";
 import { Trophy, Target, Calendar, Zap, Users, Gamepad2 } from "lucide-react";
 
 const Home = () => {
