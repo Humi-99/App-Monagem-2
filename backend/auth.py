@@ -79,7 +79,7 @@ async def authenticate_wallet(wallet_address: str, signature: Optional[str], db:
     # Get or create user
     user = await db.get_user_by_wallet(wallet_address)
     if not user:
-        from .models import UserCreate
+        from models import UserCreate
         user_data = UserCreate(wallet_address=wallet_address)
         user = await db.create_user(user_data)
     
