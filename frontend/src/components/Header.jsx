@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 import { Wallet, Trophy, Settings, User, Coins, Menu, X } from 'lucide-react';
-import { mockUserData } from './mockData';
+import { useAuth } from '../contexts/AuthContext';
 
 const Header = ({ onWalletConnect, onProfileClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
