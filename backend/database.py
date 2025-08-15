@@ -2,7 +2,7 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 import os
-from .models import *
+from models import *
 
 class Database:
     def __init__(self, client: AsyncIOMotorClient):
