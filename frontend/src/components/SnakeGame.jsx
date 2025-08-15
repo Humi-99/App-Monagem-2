@@ -12,7 +12,7 @@ const INITIAL_SNAKE = [{ x: 10, y: 10 }];
 const INITIAL_FOOD = { x: 15, y: 15 };
 const INITIAL_DIRECTION = { x: 0, y: 1 };
 
-const SnakeGame = ({ onBack }) => {
+const SnakeGame = ({ onBack, game }) => {
   const [snake, setSnake] = useState(INITIAL_SNAKE);
   const [food, setFood] = useState(INITIAL_FOOD);
   const [direction, setDirection] = useState(INITIAL_DIRECTION);
@@ -22,7 +22,12 @@ const SnakeGame = ({ onBack }) => {
   const [highScore, setHighScore] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const [tokens, setTokens] = useState(0);
+  const [gameStartTime, setGameStartTime] = useState(null);
+  const [isSubmittingScore, setIsSubmittingScore] = useState(false);
   const gameLoopRef = useRef();
+  
+  const { user, isAuthenticated, updateUserStats } = useAuth();
+  const { toast } = useToast();
 
   const generateFood = useCallback(() => {
     const newFood = {
