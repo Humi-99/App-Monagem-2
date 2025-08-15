@@ -197,6 +197,7 @@ const SnakeGame = ({ onBack, game }) => {
   const startGame = () => {
     setGameStarted(true);
     setGameOver(false);
+    setGameStartTime(Date.now());
   };
 
   const togglePause = () => {
