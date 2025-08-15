@@ -7,12 +7,20 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Header = ({ onWalletConnect, onProfileClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [walletConnected, setWalletConnected] = useState(mockUserData.wallet.connected);
+  const { user, isAuthenticated, connectWallet, logout, isLoading } = useAuth();
 
-  const handleWalletConnect = () => {
-    setWalletConnected(!walletConnected);
-    if (onWalletConnect) {
-      onWalletConnect(!walletConnected);
+  const handleWalletConnect = async () => {
+    if (isAuthenticated) {
+      logout();
+    } else {
+      try {
+        await connectWallet();
+        if (onWalletConnect) {
+          onWalletConnect(true);
+        }
+      } catch (error) {
+        console.error('Wallet connection failed:', error);
+      }
     }
   };
 
