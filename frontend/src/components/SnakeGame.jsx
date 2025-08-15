@@ -29,7 +29,54 @@ const SnakeGame = ({ onBack, game }) => {
   const { user, isAuthenticated, updateUserStats } = useAuth();
   const { toast } = useToast();
 
-  const generateFood = useCallback(() => {
+  const submitScore = async (finalScore, gameDuration) => {
+    if (!isAuthenticated || !user || isSubmittingScore) return;
+    
+    try {
+      setIsSubmittingScore(true);
+      
+      const response = await gamesService.submitScore('snake', finalScore, {
+        duration: gameDuration,
+        snake_length: snake.length,
+        food_collected: Math.floor(finalScore / 10),
+        timestamp: new Date().toISOString()
+      });
+      
+      if (response.success) {
+        const earnedTokens = response.tokens_awarded || Math.floor(finalScore / 10);
+        setTokens(prev => prev + earnedTokens);
+        
+        // Update user stats in context
+        updateUserStats({
+          total_score: (user.total_score || 0) + finalScore,
+          games_played: (user.games_played || 0) + 1,
+          tokens_earned: (user.tokens_earned || 0) + earnedTokens
+        });
+        
+        toast({
+          title: response.new_high_score ? "New High Score! 🏆" : "Score Submitted!",
+          description: `Earned ${earnedTokens} MONAD tokens! ${response.level_up ? "Level up!" : ""}`,
+        });
+        
+        if (response.new_high_score) {
+          setHighScore(finalScore);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to submit score:', error);
+      toast({
+        title: "Score Submission Failed",
+        description: "Don't worry, your score was saved locally!",
+        variant: "destructive",
+      });
+      
+      // Fallback: save locally
+      const earnedTokens = Math.floor(finalScore / 10);
+      setTokens(prev => prev + earnedTokens);
+    } finally {
+      setIsSubmittingScore(false);
+    }
+  };
     const newFood = {
       x: Math.floor(Math.random() * GRID_SIZE),
       y: Math.floor(Math.random() * GRID_SIZE)
