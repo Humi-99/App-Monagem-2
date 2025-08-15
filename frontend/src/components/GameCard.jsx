@@ -31,7 +31,7 @@ const GameCard = ({ game, onPlayClick }) => {
           <Badge className={getCategoryColor(game.category)}>
             {game.category}
           </Badge>
-          {!game.isActive && (
+          {!game.is_active && (
             <Badge variant="secondary" className="bg-gray-600/80 text-white">
               Coming Soon
             </Badge>
