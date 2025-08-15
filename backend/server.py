@@ -201,21 +201,15 @@ async def get_global_leaderboard(
 # Challenge Routes
 @api_router.get("/challenges/daily", response_model=List[Challenge])
 async def get_daily_challenges(
-    current_user: User = Depends(get_current_user),
     db: Database = Depends(get_database)
 ):
-    """Get daily challenges with user progress"""
+    """Get daily challenges (public endpoint)"""
     challenges = await db.get_daily_challenges()
     
-    # Add user progress to each challenge
+    # For public access, just return challenges without user progress
     for challenge in challenges:
-        user_challenge = await db.get_user_challenge_progress(current_user.id, challenge.id)
-        if user_challenge:
-            challenge.progress = user_challenge.progress
-            challenge.completed = user_challenge.completed
-        else:
-            challenge.progress = 0
-            challenge.completed = False
+        challenge.progress = 0
+        challenge.completed = False
     
     return challenges
 
