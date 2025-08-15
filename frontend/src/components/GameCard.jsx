@@ -80,17 +80,17 @@ const GameCard = ({ game, onPlayClick }) => {
         {/* Play Button */}
         <Button
           onClick={() => onPlayClick(game)}
-          disabled={!game.isActive}
+          disabled={!game.is_active}
           className={`
             w-full font-semibold transition-all duration-300
-            ${game.isActive 
+            ${game.is_active 
               ? 'bg-gradient-to-r from-[#836EF9] to-[#A0055D] hover:from-[#836EF9]/80 hover:to-[#A0055D]/80 text-white hover:shadow-lg hover:shadow-[#836EF9]/30' 
               : 'bg-gray-600 text-gray-300 cursor-not-allowed'
             }
           `}
         >
           <Play className="w-4 h-4 mr-2" />
-          {game.isActive ? 'Play Now' : 'Coming Soon'}
+          {game.is_active ? 'Play Now' : 'Coming Soon'}
         </Button>
       </CardContent>
     </Card>
