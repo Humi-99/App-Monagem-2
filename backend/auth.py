@@ -45,8 +45,16 @@ async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ) -> User:
     """Get current authenticated user from JWT token"""
+    from motor.motor_asyncio import AsyncIOMotorClient
+    import os
+    
     payload = verify_token(credentials.credentials)
-    db = Database()
+    
+    # Create database connection
+    mongo_url = os.environ['MONGO_URL']
+    client = AsyncIOMotorClient(mongo_url)
+    db = Database(client)
+    
     user = await db.get_user_by_id(payload['user_id'])
     
     if not user:
@@ -55,6 +63,7 @@ async def get_current_user(
             detail="User not found"
         )
     
+    client.close()
     return user
 
 def verify_wallet_signature(address: str, signature: str) -> bool:
