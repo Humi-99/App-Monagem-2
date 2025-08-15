@@ -50,11 +50,11 @@ const GameCard = ({ game, onPlayClick }) => {
         <div className="flex items-center justify-between text-sm text-[#FBFAF9]">
           <div className="flex items-center space-x-1">
             <Users className="w-4 h-4" />
-            <span>{game.playCount}</span>
+            <span>{game.play_count || game.playCount || 0}</span>
           </div>
           <div className="flex items-center space-x-1">
             <Trophy className="w-4 h-4" />
-            <span>{game.avgScore.toLocaleString()}</span>
+            <span>{(game.avg_score || game.avgScore || 0).toLocaleString()}</span>
           </div>
         </div>
 
