@@ -42,11 +42,11 @@ def verify_token(token: str) -> dict:
         )
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security),
-    db: Database = Depends()
+    credentials: HTTPAuthorizationCredentials = Depends(security)
 ) -> User:
     """Get current authenticated user from JWT token"""
     payload = verify_token(credentials.credentials)
+    db = Database()
     user = await db.get_user_by_id(payload['user_id'])
     
     if not user:
