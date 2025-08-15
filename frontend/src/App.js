@@ -28,18 +28,27 @@ const Home = () => {
       try {
         setLoading(true);
         
-        // Load all data in parallel
-        const [gamesData, leaderboardData, challengesData, statsData] = await Promise.all([
+        // Load data that doesn't require authentication
+        const [gamesData, leaderboardData, statsData] = await Promise.all([
           gamesService.getGames(),
           gamesService.getGlobalLeaderboard(5),
-          challengesService.getDailyChallenges(),
           challengesService.getPlatformStats()
         ]);
         
         setGames(gamesData);
         setLeaderboard(leaderboardData);
-        setChallenges(challengesData);
         setPlatformStats(statsData);
+        
+        // Load challenges separately (may require auth, so use fallback)
+        try {
+          const challengesData = await challengesService.getDailyChallenges();
+          setChallenges(challengesData);
+        } catch (error) {
+          console.log('Using mock challenges data');
+          // Use mock data for challenges if not authenticated
+          const { mockDailyChallenges } = await import('./components/mockData');
+          setChallenges(mockDailyChallenges);
+        }
       } catch (error) {
         console.error('Failed to load data:', error);
       } finally {
