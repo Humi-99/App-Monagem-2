@@ -1,0 +1,157 @@
+{
+  "summary": {
+    "passed": 9,
+    "failed": 1,
+    "total": 10,
+    "success_rate": 90.0
+  },
+  "detailed_results": [
+    {
+      "test": "Health Check",
+      "success": true,
+      "message": "API is running - MoanGem API is running",
+      "timestamp": "2025-08-15T16:14:07.059014",
+      "response_data": {
+        "message": "MoanGem API is running",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "test": "Wallet Authentication",
+      "success": true,
+      "message": "User authenticated: 0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+      "timestamp": "2025-08-15T16:14:07.595830",
+      "response_data": {
+        "user": {
+          "id": "9455105b-0665-4148-8496-462fb1197e5d",
+          "wallet_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+          "username": "",
+          "level": 1,
+          "total_score": 0,
+          "games_played": 0,
+          "tokens_earned": 0.0,
+          "nfts_owned": 0,
+          "joined_at": "2025-08-15T16:14:07.579717",
+          "last_active": "2025-08-15T16:14:07.579720"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOTQ1NTEwNWItMDY2NS00MTQ4LTg0OTYtNDYyZmIxMTk3ZTVkIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNUNjNjYzNEMwNTMyOTI1YTNiOEQ0QzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTUzNjA4NDcsImlhdCI6MTc1NTI3NDQ0N30.dHEvzSqvvm1qq0SiXEnbtZacSYI7XrBkHpM2H230JC8",
+        "message": "Wallet connected successfully"
+      }
+    },
+    {
+      "test": "Get Profile",
+      "success": true,
+      "message": "Profile retrieved for user: 0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+      "timestamp": "2025-08-15T16:14:08.137167",
+      "response_data": {
+        "id": "9455105b-0665-4148-8496-462fb1197e5d",
+        "wallet_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+        "username": "",
+        "level": 1,
+        "total_score": 0,
+        "games_played": 0,
+        "tokens_earned": 0.0,
+        "nfts_owned": 0,
+        "joined_at": "2025-08-15T16:14:07.579000",
+        "last_active": "2025-08-15T16:14:07.579000"
+      }
+    },
+    {
+      "test": "Games List",
+      "success": true,
+      "message": "Found 4 games including Snake game",
+      "timestamp": "2025-08-15T16:14:08.670447",
+      "response_data": {
+        "games_count": 4,
+        "snake_game": {
+          "id": "snake",
+          "name": "Snake Game",
+          "description": "Classic snake gameplay with crypto power-ups and collectibles",
+          "category": "Retro",
+          "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
+          "play_count": 0,
+          "avg_score": 0,
+          "rewards": [
+            "MONAD tokens",
+            "Snake NFTs"
+          ],
+          "is_active": true
+        }
+      }
+    },
+    {
+      "test": "Score Submission",
+      "success": true,
+      "message": "Successfully submitted 3/3 scores",
+      "timestamp": "2025-08-15T16:14:10.783974",
+      "response_data": null
+    },
+    {
+      "test": "Snake Leaderboard",
+      "success": true,
+      "message": "Retrieved leaderboard with 1 entries",
+      "timestamp": "2025-08-15T16:14:11.308403",
+      "response_data": {
+        "entries": 1,
+        "top_entry": {
+          "rank": 1,
+          "player": "",
+          "user_id": "9455105b-0665-4148-8496-462fb1197e5d",
+          "score": 4200,
+          "games": 3
+        }
+      }
+    },
+    {
+      "test": "Global Leaderboard",
+      "success": true,
+      "message": "Retrieved global leaderboard with 1 entries",
+      "timestamp": "2025-08-15T16:14:11.829662",
+      "response_data": {
+        "entries": 1,
+        "top_entry": {
+          "rank": 1,
+          "player": "",
+          "user_id": "9455105b-0665-4148-8496-462fb1197e5d",
+          "total_score": 8500,
+          "games_played": 3,
+          "level": 8
+        }
+      }
+    },
+    {
+      "test": "Daily Challenges",
+      "success": false,
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-15T16:14:12.374957",
+      "response_data": null
+    },
+    {
+      "test": "Platform Stats",
+      "success": true,
+      "message": "Platform stats retrieved successfully",
+      "timestamp": "2025-08-15T16:14:12.896530",
+      "response_data": {
+        "total_players": 1,
+        "total_games_played": 3,
+        "total_rewards_distributed": "$85.0K",
+        "active_players_today": 1
+      }
+    },
+    {
+      "test": "User Stats",
+      "success": true,
+      "message": "User stats retrieved - Score: 8500, Games: 3, Level: 8",
+      "timestamp": "2025-08-15T16:14:13.418167",
+      "response_data": {
+        "total_score": 8500,
+        "games_played": 3,
+        "rank": 999,
+        "level": 8,
+        "tokens_earned": 850.0,
+        "nfts_owned": 0
+      }
+    }
+  ],
+  "timestamp": "2025-08-15T16:14:13.918814"
+}
