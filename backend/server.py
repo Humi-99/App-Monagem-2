@@ -9,9 +9,9 @@ from pathlib import Path
 from typing import List, Optional
 
 # Import our models and database
-from .models import *
-from .database import Database
-from .auth import get_current_user, authenticate_wallet
+from models import *
+from database import Database
+from auth import get_current_user, authenticate_wallet
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
