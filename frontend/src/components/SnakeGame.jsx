@@ -77,6 +77,8 @@ const SnakeGame = ({ onBack, game }) => {
       setIsSubmittingScore(false);
     }
   };
+
+  const generateFood = useCallback(() => {
     const newFood = {
       x: Math.floor(Math.random() * GRID_SIZE),
       y: Math.floor(Math.random() * GRID_SIZE)
