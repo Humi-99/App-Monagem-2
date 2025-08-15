@@ -287,8 +287,12 @@ const SnakeGame = ({ onBack, game }) => {
                         <h3 className="text-white text-2xl font-bold">Game Over!</h3>
                         <p className="text-[#FBFAF9]">Final Score: {score}</p>
                         <p className="text-[#A0055D]">Tokens Earned: {Math.floor(score / 10)}</p>
+                        {isSubmittingScore && (
+                          <p className="text-[#836EF9]">Submitting score...</p>
+                        )}
                         <Button
                           onClick={resetGame}
+                          disabled={isSubmittingScore}
                           className="bg-[#836EF9] hover:bg-[#836EF9]/80 text-white"
                         >
                           <RotateCcw className="w-4 h-4 mr-2" />
