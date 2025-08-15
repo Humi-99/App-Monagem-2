@@ -16,6 +16,39 @@ import { Trophy, Target, Calendar, Zap, Users, Gamepad2 } from "lucide-react";
 const Home = () => {
   const [currentView, setCurrentView] = useState('home');
   const [selectedGame, setSelectedGame] = useState(null);
+  const [games, setGames] = useState([]);
+  const [leaderboard, setLeaderboard] = useState([]);
+  const [challenges, setChallenges] = useState([]);
+  const [platformStats, setPlatformStats] = useState({});
+  const [loading, setLoading] = useState(true);
+
+  // Load data on component mount
+  useEffect(() => {
+    const loadData = async () => {
+      try {
+        setLoading(true);
+        
+        // Load all data in parallel
+        const [gamesData, leaderboardData, challengesData, statsData] = await Promise.all([
+          gamesService.getGames(),
+          gamesService.getGlobalLeaderboard(5),
+          challengesService.getDailyChallenges(),
+          challengesService.getPlatformStats()
+        ]);
+        
+        setGames(gamesData);
+        setLeaderboard(leaderboardData);
+        setChallenges(challengesData);
+        setPlatformStats(statsData);
+      } catch (error) {
+        console.error('Failed to load data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadData();
+  }, []);
 
   const handlePlayGame = (game) => {
     if (game.name === 'Snake Game') {
@@ -32,8 +65,19 @@ const Home = () => {
     setSelectedGame(null);
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#200052] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-[#836EF9] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-white text-lg">Loading MoanGem...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (currentView === 'snake') {
-    return <SnakeGame onBack={handleBackToHome} />;
+    return <SnakeGame onBack={handleBackToHome} game={selectedGame} />;
   }
 
   return (
