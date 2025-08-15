@@ -290,14 +290,13 @@ const SnakeGame = ({ onBack, game }) => {
                         {isSubmittingScore && (
                           <p className="text-[#836EF9]">Submitting score...</p>
                         )}
-                        <Button
-                          onClick={resetGame}
-                          disabled={isSubmittingScore}
-                          className="bg-[#836EF9] hover:bg-[#836EF9]/80 text-white"
-                        >
-                          <RotateCcw className="w-4 h-4 mr-2" />
-                          Play Again
-                        </Button>
+                        {!isAuthenticated && (
+                          <div className="mt-4 p-3 bg-[#836EF9]/20 rounded-lg">
+                            <p className="text-[#FBFAF9] text-sm">
+                              Connect your wallet to save scores and earn crypto rewards!
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                   )}
