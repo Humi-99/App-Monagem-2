@@ -3,6 +3,9 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { ArrowLeft, Play, Pause, RotateCcw, Trophy, Coins } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import gamesService from '../services/games';
+import { useToast } from '../hooks/use-toast';
 
 const GRID_SIZE = 20;
 const INITIAL_SNAKE = [{ x: 10, y: 10 }];
