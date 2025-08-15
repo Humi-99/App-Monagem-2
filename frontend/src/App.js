@@ -191,7 +191,7 @@ const Home = () => {
                     </Badge>
                     <span className="text-white text-sm">{player.player}</span>
                   </div>
-                  <span className="text-[#836EF9] font-semibold text-sm">{(player.total_score || player.score).toLocaleString()}</span>
+                  <span className="text-[#836EF9] font-semibold text-sm">{((player.total_score || player.score) || 0).toLocaleString()}</span>
                 </div>
               ))}
             </CardContent>
