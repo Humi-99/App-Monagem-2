@@ -117,6 +117,8 @@ class Challenge(BaseModel):
     is_active: bool = True
     created_at: datetime = Field(default_factory=datetime.utcnow)
     expires_at: datetime
+    progress: int = 0  # User progress for this challenge
+    completed: bool = False  # Whether user completed this challenge
 
 class ChallengeCreate(BaseModel):
     title: str
