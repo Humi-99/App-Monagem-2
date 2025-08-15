@@ -174,7 +174,7 @@ const Home = () => {
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
-              {mockLeaderboard.slice(0, 5).map((player) => (
+              {leaderboard.slice(0, 5).map((player) => (
                 <div key={player.rank} className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
                     <Badge className="bg-[#A0055D] text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">
@@ -182,7 +182,7 @@ const Home = () => {
                     </Badge>
                     <span className="text-white text-sm">{player.player}</span>
                   </div>
-                  <span className="text-[#836EF9] font-semibold text-sm">{player.score.toLocaleString()}</span>
+                  <span className="text-[#836EF9] font-semibold text-sm">{(player.total_score || player.score).toLocaleString()}</span>
                 </div>
               ))}
             </CardContent>
