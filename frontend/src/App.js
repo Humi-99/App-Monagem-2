@@ -60,7 +60,7 @@ const Home = () => {
   }, []);
 
   const handlePlayGame = (game) => {
-    if (game.name === 'Snake Game') {
+    if (game.name === 'Snake Game' && game.is_active) {
       setCurrentView('snake');
       setSelectedGame(game);
     } else {
