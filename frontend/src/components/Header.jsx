@@ -83,18 +83,28 @@ const Header = ({ onWalletConnect, onProfileClick }) => {
 
             <Button
               onClick={handleWalletConnect}
-              disabled={isLoading}
+              disabled={isLoading || wallet.isLoading}
               className={`
-                px-6 py-2 rounded-lg font-semibold transition-all duration-300
+                px-6 py-2 rounded-lg font-semibold transition-all duration-300 relative
                 ${isAuthenticated 
                   ? 'bg-[#A0055D] hover:bg-[#A0055D]/80 text-white' 
                   : 'bg-[#836EF9] hover:bg-[#836EF9]/80 text-white'
                 }
-                ${isLoading ? 'opacity-50 cursor-not-allowed' : ''}
+                ${(isLoading || wallet.isLoading) ? 'opacity-50 cursor-not-allowed' : ''}
               `}
             >
-              <Wallet className="w-4 h-4 mr-2" />
-              {isLoading ? 'Connecting...' : isAuthenticated ? 'Connected' : 'Connect Wallet'}
+              <div className="flex items-center">
+                <Wallet className="w-4 h-4 mr-2" />
+                {isLoading || wallet.isLoading ? 'Connecting...' : 
+                 isAuthenticated ? (
+                  <>
+                    Connected
+                    {wallet.isConnected && !wallet.isOnMonadTestnet && (
+                      <AlertTriangle className="w-3 h-3 ml-1 text-orange-300" />
+                    )}
+                  </>
+                 ) : 'Connect Wallet'}
+              </div>
             </Button>
 
             {isAuthenticated && (
