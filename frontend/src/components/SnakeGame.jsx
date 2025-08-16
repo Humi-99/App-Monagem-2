@@ -88,13 +88,92 @@ const SnakeGame = ({ onBack, game }) => {
     }
   };
 
-  const generateFood = useCallback(() => {
-    const newFood = {
-      x: Math.floor(Math.random() * GRID_SIZE),
-      y: Math.floor(Math.random() * GRID_SIZE)
-    };
-    return newFood;
+  const createParticle = useCallback((x, y, color = '#836EF9', count = 5) => {
+    const newParticles = [];
+    for (let i = 0; i < count; i++) {
+      newParticles.push({
+        id: Math.random(),
+        x: x * (500 / GRID_SIZE) + (500 / GRID_SIZE) / 2,
+        y: y * (500 / GRID_SIZE) + (500 / GRID_SIZE) / 2,
+        vx: (Math.random() - 0.5) * 4,
+        vy: (Math.random() - 0.5) * 4,
+        color,
+        life: 20,
+        maxLife: 20
+      });
+    }
+    setParticles(prev => [...prev, ...newParticles]);
   }, []);
+
+  const generateFood = useCallback(() => {
+    let newFood;
+    do {
+      newFood = {
+        x: Math.floor(Math.random() * GRID_SIZE),
+        y: Math.floor(Math.random() * GRID_SIZE),
+        type: Math.random() > 0.7 ? 'special' : 'normal'
+      };
+    } while (
+      snake.some(segment => segment.x === newFood.x && segment.y === newFood.y) ||
+      obstacles.some(obs => obs.x === newFood.x && obs.y === newFood.y)
+    );
+    return newFood;
+  }, [snake, obstacles]);
+
+  const generateSpecialFood = useCallback(() => {
+    if (Math.random() < 0.3 && !specialFood) {
+      let newSpecialFood;
+      do {
+        newSpecialFood = {
+          x: Math.floor(Math.random() * GRID_SIZE),
+          y: Math.floor(Math.random() * GRID_SIZE),
+          type: ['golden', 'crystal', 'monad'][Math.floor(Math.random() * 3)],
+          timeLeft: 100
+        };
+      } while (
+        snake.some(segment => segment.x === newSpecialFood.x && segment.y === newSpecialFood.y) ||
+        obstacles.some(obs => obs.x === newSpecialFood.x && obs.y === newSpecialFood.y)
+      );
+      setSpecialFood(newSpecialFood);
+    }
+  }, [snake, obstacles, specialFood]);
+
+  const generatePowerUp = useCallback(() => {
+    if (Math.random() < 0.1 && powerUps.length < 2) {
+      let newPowerUp;
+      do {
+        newPowerUp = {
+          id: Math.random(),
+          x: Math.floor(Math.random() * GRID_SIZE),
+          y: Math.floor(Math.random() * GRID_SIZE),
+          type: ['shield', 'double', 'slow'][Math.floor(Math.random() * 3)],
+          timeLeft: 80
+        };
+      } while (
+        snake.some(segment => segment.x === newPowerUp.x && segment.y === newPowerUp.y) ||
+        obstacles.some(obs => obs.x === newPowerUp.x && obs.y === newPowerUp.y)
+      );
+      setPowerUps(prev => [...prev, newPowerUp]);
+    }
+  }, [snake, obstacles, powerUps]);
+
+  const generateObstacles = useCallback(() => {
+    if (level > 3 && obstacles.length < level - 2) {
+      let newObstacle;
+      do {
+        newObstacle = {
+          id: Math.random(),
+          x: Math.floor(Math.random() * GRID_SIZE),
+          y: Math.floor(Math.random() * GRID_SIZE)
+        };
+      } while (
+        snake.some(segment => segment.x === newObstacle.x && segment.y === newObstacle.y) ||
+        (newObstacle.x === food.x && newObstacle.y === food.y) ||
+        Math.abs(newObstacle.x - snake[0].x) + Math.abs(newObstacle.y - snake[0].y) < 3
+      );
+      setObstacles(prev => [...prev, newObstacle]);
+    }
+  }, [snake, food, level, obstacles]);
 
   const resetGame = useCallback(() => {
     setSnake(INITIAL_SNAKE);
