@@ -53,6 +53,18 @@ class DonationService:
     async def estimate_gas_and_fees(self, donor_address: str, amount_wei: int) -> Dict[str, Any]:
         """Estimate gas and transaction fees"""
         try:
+            if self.mock_mode:
+                # Return mock gas estimation for testing
+                return {
+                    "gas_price_gwei": 20.0,
+                    "gas_estimate": 21000,
+                    "total_fee_mon": 0.00042,  # 21000 * 20 gwei
+                    "user_balance_mon": 10.0,  # Mock balance
+                    "required_total_wei": amount_wei + 420000000000000,  # amount + gas fee
+                    "sufficient_balance": True,
+                    "mock_mode": True
+                }
+            
             # Get current gas price
             gas_price = self.w3.eth.gas_price
             
