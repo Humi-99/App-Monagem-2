@@ -325,6 +325,42 @@ backend:
           comment: "JWT authentication system working correctly. Token creation, verification, and user extraction from tokens all functioning properly."
 
 frontend:
+  - task: "Donation System Component"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/components/DonationSystem.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Created comprehensive donation system UI with amount input, gas estimation, transaction handling, donation stats display, and recent donations list"
+
+  - task: "Donation Navigation Integration"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Integrated donation system into main app navigation with dedicated view and CTA button for authenticated users"
+
+  - task: "Smart Contract Integration"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/components/DonationSystem.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented Web3 transaction handling for sending MON tokens to smart contract address 0xC443647582B1484f9Aba3A6C0B98df59918E17e2"
+
   - task: "WalletConnection Component"
     implemented: true
     working: "pending_test"
