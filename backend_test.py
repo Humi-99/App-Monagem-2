@@ -390,10 +390,14 @@ class MoanGemAPITester:
         print(f"Backend URL: {self.base_url}")
         print("=" * 60)
         
-        # Test sequence
+        # Test sequence - focusing on wallet authentication tests first
         tests = [
             ("Health Check", self.test_health_check),
-            ("Wallet Authentication", self.test_wallet_authentication),
+            ("Legacy Wallet Authentication", self.test_wallet_authentication_legacy),
+            ("Wallet Auth with Message", self.test_wallet_authentication_with_message),
+            ("Invalid Address Test", self.test_wallet_authentication_invalid_address),
+            ("Empty Signature Test", self.test_wallet_authentication_empty_signature),
+            ("Address Normalization", self.test_address_normalization),
             ("Get Profile", self.test_get_profile),
             ("Games List", self.test_games_list),
             ("Score Submission", self.test_score_submission),
