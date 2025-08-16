@@ -371,11 +371,11 @@ const SnakeGame = ({ onBack, game }) => {
     createParticle, doublePoints, combo, maxCombo, submitScore
   ]);
 
-  // Game loop
+  // Game loop with dynamic speed
   useEffect(() => {
-    gameLoopRef.current = setInterval(moveSnake, 150);
+    gameLoopRef.current = setInterval(moveSnake, gameSpeed);
     return () => clearInterval(gameLoopRef.current);
-  }, [moveSnake]);
+  }, [moveSnake, gameSpeed]);
 
   // Keyboard controls
   useEffect(() => {
