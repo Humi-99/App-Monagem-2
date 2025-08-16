@@ -9,6 +9,7 @@ import { useWallet } from '../contexts/WalletContext';
 const Header = ({ onWalletConnect, onProfileClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, isAuthenticated, connectWallet, logout, isLoading } = useAuth();
+  const wallet = useWallet();
 
   const handleWalletConnect = async () => {
     if (isAuthenticated) {
