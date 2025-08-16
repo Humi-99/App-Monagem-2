@@ -69,14 +69,34 @@ async def get_current_user(
     client.close()
     return user
 
-def verify_wallet_signature(address: str, signature: str) -> bool:
+def verify_wallet_signature(address: str, signature: str, message: str) -> bool:
     """
-    Verify wallet signature (simplified for demo)
-    In production, this would verify the actual cryptographic signature
+    Verify wallet signature using eth_account
     """
-    # For demo purposes, we'll accept any signature
-    # In production, implement proper signature verification
-    return len(signature) > 0 if signature else True
+    try:
+        # Clean and validate address
+        if not address or not signature or not message:
+            return False
+            
+        # Normalize address
+        address = address.lower()
+        
+        # Validate address format
+        if not re.match(r'^0x[a-fA-F0-9]{40}$', address):
+            return False
+        
+        # Encode the message as it would be signed by MetaMask
+        encoded_message = encode_defunct(text=message)
+        
+        # Recover the address from the signature
+        recovered_address = Account.recover_message(encoded_message, signature=signature)
+        
+        # Compare addresses (case-insensitive)
+        return recovered_address.lower() == address
+        
+    except Exception as e:
+        print(f"Signature verification error: {e}")
+        return False
 
 async def authenticate_wallet(wallet_address: str, signature: Optional[str], db: Database) -> tuple[User, str]:
     """Authenticate user with wallet address and return user + token"""
