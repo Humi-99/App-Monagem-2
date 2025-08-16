@@ -703,11 +703,14 @@ const GasDodgerGame = ({ onBack, game }) => {
             {/* Controls */}
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
-                <CardTitle className="text-white">Controls</CardTitle>
+                <CardTitle className="text-white">Controls & Character</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-[#FBFAF9]">
+                <div className="text-center mb-3 p-2 bg-purple-500/20 rounded-lg">
+                  <span className="text-purple-300 font-semibold">🦔 Playing as: Spiky!</span>
+                </div>
                 <div className="flex justify-between">
-                  <span>Move:</span>
+                  <span>Move Spiky:</span>
                   <span>← → ↑ ↓ Arrow Keys</span>
                 </div>
                 <div className="flex justify-between">
@@ -716,7 +719,7 @@ const GasDodgerGame = ({ onBack, game }) => {
                 </div>
                 <div className="flex justify-between">
                   <span>Objective:</span>
-                  <span>Dodge & survive!</span>
+                  <span>Help Spiky dodge!</span>
                 </div>
                 <div className="text-sm space-y-1">
                   <div className="text-red-400">⛽ Gas Fee (-1 life)</div>
