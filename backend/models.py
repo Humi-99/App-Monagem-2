@@ -173,3 +173,31 @@ class ScoreResponse(BaseModel):
     total_tokens: float
     level_up: bool = False
     message: str
+
+# Donation Models
+class DonationRequest(BaseModel):
+    amount: float  # Amount in MON tokens
+    donor_address: str
+    message: Optional[str] = ""
+
+class DonationResponse(BaseModel):
+    success: bool
+    transaction_hash: Optional[str] = None
+    message: str
+    amount: float
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+class Donation(BaseModel):
+    id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    donor_address: str
+    amount: float
+    message: str = ""
+    transaction_hash: Optional[str] = None
+    status: str = "pending"  # pending, confirmed, failed
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+class DonationStats(BaseModel):
+    total_donations: float
+    donation_count: int
+    top_donor: Optional[str] = None
+    recent_donations: List[Donation] = []
