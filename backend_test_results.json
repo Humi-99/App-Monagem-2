@@ -1,160 +1,276 @@
 {
   "summary": {
-    "passed": 0,
-    "failed": 21,
+    "passed": 13,
+    "failed": 8,
     "total": 21,
-    "success_rate": 0.0
+    "success_rate": 61.904761904761905
   },
   "detailed_results": [
     {
       "test": "Health Check",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:37.323793",
-      "response_data": null
+      "success": true,
+      "message": "API is running - MoanGem API is running",
+      "timestamp": "2025-08-16T12:05:08.185005",
+      "response_data": {
+        "message": "MoanGem API is running",
+        "version": "1.0.0"
+      }
     },
     {
       "test": "Legacy Wallet Authentication",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:37.843403",
-      "response_data": null
+      "success": true,
+      "message": "User authenticated: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+      "timestamp": "2025-08-16T12:05:08.719209",
+      "response_data": {
+        "user": {
+          "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
+          "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+          "username": "",
+          "level": 1,
+          "total_score": 0,
+          "games_played": 0,
+          "tokens_earned": 0.0,
+          "nfts_owned": 0,
+          "joined_at": "2025-08-16T12:05:08.705729",
+          "last_active": "2025-08-16T12:05:08.705732"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzIzMDgsImlhdCI6MTc1NTM0NTkwOH0.Cfznduk0cqTL65zOnkDD34dhMdUU-ncFJc-6JPtYFL0",
+        "message": "Wallet connected successfully"
+      }
     },
     {
       "test": "Wallet Auth with Message",
       "success": false,
-      "message": "Unexpected HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:38.360895",
+      "message": "Unexpected HTTP 400: {\"detail\":\"Failed to connect wallet: 401: Invalid wallet signature\"}",
+      "timestamp": "2025-08-16T12:05:09.237727",
       "response_data": null
     },
     {
       "test": "Invalid Address Test",
       "success": false,
-      "message": "Unexpected HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:38.875248",
-      "response_data": null
+      "message": "SECURITY ISSUE: Malformed address accepted in legacy auth mode",
+      "timestamp": "2025-08-16T12:05:09.760104",
+      "response_data": {
+        "status": 200,
+        "security_issue": true
+      }
     },
     {
       "test": "Empty Signature Test",
       "success": false,
-      "message": "Unexpected HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:39.397761",
-      "response_data": null
+      "message": "SECURITY ISSUE: Empty signature accepted",
+      "timestamp": "2025-08-16T12:05:10.284747",
+      "response_data": {
+        "status": 200,
+        "security_issue": true
+      }
     },
     {
       "test": "Address Normalization",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:39.922920",
-      "response_data": null
+      "success": true,
+      "message": "Address correctly normalized to lowercase: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+      "timestamp": "2025-08-16T12:05:10.815705",
+      "response_data": {
+        "user": {
+          "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
+          "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+          "username": "",
+          "level": 1,
+          "total_score": 0,
+          "games_played": 0,
+          "tokens_earned": 0.0,
+          "nfts_owned": 0,
+          "joined_at": "2025-08-16T12:05:08.705000",
+          "last_active": "2025-08-16T12:05:08.705000"
+        },
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzIzMTAsImlhdCI6MTc1NTM0NTkxMH0.t2tK1kclmBcg6VnaX87H79O_kiY8fXDnGkSOk6NPgZI",
+        "message": "Wallet connected successfully"
+      }
     },
     {
       "test": "Get Profile",
-      "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:40.423286",
-      "response_data": null
+      "success": true,
+      "message": "Profile retrieved for user: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+      "timestamp": "2025-08-16T12:05:11.362953",
+      "response_data": {
+        "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
+        "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
+        "username": "",
+        "level": 1,
+        "total_score": 0,
+        "games_played": 0,
+        "tokens_earned": 0.0,
+        "nfts_owned": 0,
+        "joined_at": "2025-08-16T12:05:08.705000",
+        "last_active": "2025-08-16T12:05:08.705000"
+      }
     },
     {
       "test": "Games List",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:40.942293",
-      "response_data": null
+      "success": true,
+      "message": "Found 4 games including Snake game",
+      "timestamp": "2025-08-16T12:05:11.887369",
+      "response_data": {
+        "games_count": 4,
+        "snake_game": {
+          "id": "snake",
+          "name": "Snake Game",
+          "description": "Classic snake gameplay with crypto power-ups and collectibles",
+          "category": "Retro",
+          "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
+          "play_count": 0,
+          "avg_score": 0,
+          "rewards": [
+            "MONAD tokens",
+            "Snake NFTs"
+          ],
+          "is_active": true
+        }
+      }
     },
     {
       "test": "Score Submission",
-      "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:41.442674",
+      "success": true,
+      "message": "Successfully submitted 3/3 scores",
+      "timestamp": "2025-08-16T12:05:14.022122",
       "response_data": null
     },
     {
       "test": "Snake Leaderboard",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:41.963928",
-      "response_data": null
+      "success": true,
+      "message": "Retrieved leaderboard with 1 entries",
+      "timestamp": "2025-08-16T12:05:14.544501",
+      "response_data": {
+        "entries": 1,
+        "top_entry": {
+          "rank": 1,
+          "player": "",
+          "user_id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
+          "score": 4200,
+          "games": 3
+        }
+      }
     },
     {
       "test": "Global Leaderboard",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:42.509551",
-      "response_data": null
+      "success": true,
+      "message": "Retrieved global leaderboard with 2 entries",
+      "timestamp": "2025-08-16T12:05:15.063832",
+      "response_data": {
+        "entries": 2,
+        "top_entry": {
+          "rank": 1,
+          "player": "",
+          "user_id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
+          "total_score": 8500,
+          "games_played": 3,
+          "level": 8
+        }
+      }
     },
     {
       "test": "Daily Challenges",
-      "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:43.009936",
-      "response_data": null
+      "success": true,
+      "message": "Retrieved 3 daily challenges",
+      "timestamp": "2025-08-16T12:05:15.586011",
+      "response_data": {
+        "challenges_count": 3,
+        "challenges": [
+          "Snake Streak",
+          "Perfect Dodge",
+          "Card Combo"
+        ]
+      }
     },
     {
       "test": "Platform Stats",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:43.527744",
-      "response_data": null
+      "success": true,
+      "message": "Platform stats retrieved successfully",
+      "timestamp": "2025-08-16T12:05:16.108627",
+      "response_data": {
+        "total_players": 2,
+        "total_games_played": 3,
+        "total_rewards_distributed": "$85.0K",
+        "active_players_today": 2
+      }
     },
     {
       "test": "User Stats",
-      "success": false,
-      "message": "No user ID available",
-      "timestamp": "2025-08-16T12:01:44.028107",
-      "response_data": null
+      "success": true,
+      "message": "User stats retrieved - Score: 8500, Games: 3, Level: 8",
+      "timestamp": "2025-08-16T12:05:16.625906",
+      "response_data": {
+        "total_score": 8500,
+        "games_played": 3,
+        "rank": 999,
+        "level": 8,
+        "tokens_earned": 850.0,
+        "nfts_owned": 0
+      }
     },
     {
       "test": "Donation Gas Estimation",
       "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:44.543521",
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:17.175141",
       "response_data": null
     },
     {
       "test": "Donation Authentication",
-      "success": false,
-      "message": "Should require authentication but got HTTP 502",
-      "timestamp": "2025-08-16T12:01:45.063061",
+      "success": true,
+      "message": "Correctly requires authentication (HTTP 403)",
+      "timestamp": "2025-08-16T12:05:17.697368",
       "response_data": {
-        "status": 502
+        "status": 403
       }
     },
     {
       "test": "Donation Creation",
       "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:45.563409",
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:18.226838",
       "response_data": null
     },
     {
-      "test": "Donation Validation",
+      "test": "Donation Validation (Negative Amount)",
       "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:46.063562",
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:18.781725",
+      "response_data": null
+    },
+    {
+      "test": "Donation Validation (Invalid Address)",
+      "success": false,
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:18.809216",
       "response_data": null
     },
     {
       "test": "Donation Stats",
-      "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:46.578273",
-      "response_data": null
+      "success": true,
+      "message": "Stats retrieved - Total: 0.0 MON, Count: 0",
+      "timestamp": "2025-08-16T12:05:19.330587",
+      "response_data": {
+        "total_donations": 0.0,
+        "donation_count": 0,
+        "top_donor": null,
+        "recent_donations": []
+      }
     },
     {
       "test": "Donation Status Check",
       "success": false,
-      "message": "HTTP 502: ",
-      "timestamp": "2025-08-16T12:01:47.098599",
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:19.853041",
       "response_data": null
     },
     {
       "test": "Donation Confirmation",
       "success": false,
-      "message": "No auth token available",
-      "timestamp": "2025-08-16T12:01:47.598999",
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:05:20.381397",
       "response_data": null
     }
   ],
-  "timestamp": "2025-08-16T12:01:48.099462"
+  "timestamp": "2025-08-16T12:05:20.882042"
 }
