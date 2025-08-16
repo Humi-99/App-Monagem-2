@@ -490,36 +490,107 @@ const SnakeGame = ({ onBack, game }) => {
                 {/* Game Canvas */}
                 <div className="relative">
                   <div 
-                    className="grid bg-[#0a0a0a] border-2 border-[#836EF9]/50 rounded-lg overflow-hidden mx-auto"
+                    className="grid bg-gradient-to-br from-[#0a0a0a] to-[#1a1a2e] border-2 border-[#836EF9]/50 rounded-lg overflow-hidden mx-auto relative"
                     style={{ 
                       gridTemplateColumns: `repeat(${GRID_SIZE}, 1fr)`,
                       width: '500px',
                       height: '500px'
                     }}
                   >
+                    {/* Particles Layer */}
+                    <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 10 }}>
+                      {particles.map(particle => (
+                        <div
+                          key={particle.id}
+                          className="absolute rounded-full"
+                          style={{
+                            width: 3,
+                            height: 3,
+                            left: particle.x,
+                            top: particle.y,
+                            backgroundColor: particle.color,
+                            opacity: particle.life / particle.maxLife,
+                            transform: `scale(${particle.life / particle.maxLife})`
+                          }}
+                        />
+                      ))}
+                    </div>
+
                     {/* Grid cells */}
                     {Array.from({ length: GRID_SIZE * GRID_SIZE }).map((_, index) => {
                       const x = index % GRID_SIZE;
                       const y = Math.floor(index / GRID_SIZE);
                       const isSnake = snake.some(segment => segment.x === x && segment.y === y);
                       const isFood = food.x === x && food.y === y;
+                      const isSpecialFood = specialFood && specialFood.x === x && specialFood.y === y;
                       const isHead = snake[0] && snake[0].x === x && snake[0].y === y;
+                      const isPowerUp = powerUps.some(pu => pu.x === x && pu.y === y);
+                      const isObstacle = obstacles.some(obs => obs.x === x && obs.y === y);
+                      
+                      const powerUp = powerUps.find(pu => pu.x === x && pu.y === y);
+
+                      let cellContent = '';
+                      let cellClass = 'border border-[#836EF9]/5 transition-all duration-200';
+
+                      if (isSnake) {
+                        if (isHead) {
+                          cellClass += invulnerable 
+                            ? ' bg-green-400 shadow-lg shadow-green-400/50 animate-pulse' 
+                            : ' bg-[#A0055D] shadow-lg shadow-[#A0055D]/50';
+                          cellContent = '🐍';
+                        } else {
+                          cellClass += ' bg-[#836EF9] shadow-md';
+                        }
+                      } else if (isSpecialFood) {
+                        cellClass += ' animate-pulse';
+                        switch (specialFood.type) {
+                          case 'golden':
+                            cellClass += ' bg-yellow-400 shadow-lg shadow-yellow-400/50';
+                            cellContent = '🟡';
+                            break;
+                          case 'crystal':
+                            cellClass += ' bg-cyan-400 shadow-lg shadow-cyan-400/50';
+                            cellContent = '💎';
+                            break;
+                          case 'monad':
+                            cellClass += ' bg-purple-500 shadow-lg shadow-purple-500/50';
+                            cellContent = '⚡';
+                            break;
+                        }
+                      } else if (isFood) {
+                        cellClass += food.type === 'special' 
+                          ? ' bg-orange-400 shadow-lg shadow-orange-400/50 animate-pulse' 
+                          : ' bg-yellow-400 shadow-lg shadow-yellow-400/50 animate-pulse';
+                        cellContent = food.type === 'special' ? '🍎' : '🟨';
+                      } else if (isPowerUp) {
+                        cellClass += ' animate-bounce';
+                        switch (powerUp.type) {
+                          case 'shield':
+                            cellClass += ' bg-green-500 shadow-lg shadow-green-500/50';
+                            cellContent = '🛡️';
+                            break;
+                          case 'double':
+                            cellClass += ' bg-orange-500 shadow-lg shadow-orange-500/50';
+                            cellContent = '💎';
+                            break;
+                          case 'slow':
+                            cellClass += ' bg-blue-500 shadow-lg shadow-blue-500/50';
+                            cellContent = '⏰';
+                            break;
+                        }
+                      } else if (isObstacle) {
+                        cellClass += ' bg-red-600 shadow-lg shadow-red-600/50';
+                        cellContent = '⚠️';
+                      } else {
+                        cellClass += ' bg-transparent hover:bg-[#836EF9]/5';
+                      }
 
                       return (
-                        <div
-                          key={index}
-                          className={`
-                            border border-[#836EF9]/10
-                            ${isSnake 
-                              ? isHead 
-                                ? 'bg-[#A0055D] shadow-lg' 
-                                : 'bg-[#836EF9]'
-                              : isFood 
-                                ? 'bg-yellow-400 shadow-lg animate-pulse' 
-                                : 'bg-transparent'
-                            }
-                          `}
-                        />
+                        <div key={index} className={cellClass}>
+                          <div className="w-full h-full flex items-center justify-center text-xs">
+                            {cellContent}
+                          </div>
+                        </div>
                       );
                     })}
                   </div>
