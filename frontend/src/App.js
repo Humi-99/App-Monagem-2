@@ -240,6 +240,149 @@ const Home = () => {
           </Card>
         </div>
 
+        {/* Invest to Earn - Coming Soon Section */}
+        <section className="py-20 bg-gradient-to-br from-[#120029] via-[#200052] to-[#300066]">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-[#836EF9]/20 to-[#A0055D]/20 rounded-full px-6 py-2 mb-6 border border-[#836EF9]/30">
+                <Sparkles className="w-4 h-4 text-[#836EF9]" />
+                <span className="text-[#836EF9] font-medium">Coming Soon</span>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-6">
+                <span className="bg-gradient-to-r from-[#836EF9] to-[#A0055D] bg-clip-text text-transparent">
+                  Invest to Earn
+                </span>
+              </h2>
+              <p className="text-[#FBFAF9] text-xl max-w-3xl mx-auto leading-relaxed">
+                Get ready for the next evolution of gaming rewards. Soon you'll be able to stake MON tokens, 
+                invest in gaming pools, and earn passive rewards while the community plays.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {/* Staking Pools */}
+              <Card className="bg-gradient-to-br from-[#836EF9]/10 to-transparent border-[#836EF9]/30 hover:border-[#836EF9]/50 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#836EF9] to-[#A0055D] rounded-lg flex items-center justify-center">
+                      <TrendingUp className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Staking Pools</CardTitle>
+                      <CardDescription className="text-[#FBFAF9]/70">Stake MON & Earn Rewards</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Lock your MON tokens in staking pools
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Earn up to 15% APY on your investment
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Support the gaming ecosystem
+                  </div>
+                  <Badge variant="secondary" className="bg-[#836EF9]/20 text-[#836EF9] border-[#836EF9]/30">
+                    <Clock className="w-3 h-3 mr-1" />
+                    Q2 2025
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              {/* Gaming Investment Pools */}
+              <Card className="bg-gradient-to-br from-[#A0055D]/10 to-transparent border-[#A0055D]/30 hover:border-[#A0055D]/50 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-[#A0055D] to-[#836EF9] rounded-lg flex items-center justify-center">
+                      <Gamepad2 className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Gaming Pools</CardTitle>
+                      <CardDescription className="text-[#FBFAF9]/70">Invest in Gaming Success</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Invest in high-performing games
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Earn from game revenue sharing
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Community-driven investment decisions
+                  </div>
+                  <Badge variant="secondary" className="bg-[#A0055D]/20 text-[#A0055D] border-[#A0055D]/30">
+                    <Clock className="w-3 h-3 mr-1" />
+                    Q3 2025
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              {/* Liquidity Mining */}
+              <Card className="bg-gradient-to-br from-yellow-500/10 to-transparent border-yellow-500/30 hover:border-yellow-500/50 transition-all duration-300">
+                <CardHeader>
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center">
+                      <Zap className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-white text-lg">Liquidity Mining</CardTitle>
+                      <CardDescription className="text-[#FBFAF9]/70">Provide Liquidity & Mine Rewards</CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Provide MON/ETH liquidity
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Mine additional MON rewards
+                  </div>
+                  <div className="text-[#FBFAF9]/80 text-sm">
+                    • Support the DEX ecosystem
+                  </div>
+                  <Badge variant="secondary" className="bg-yellow-500/20 text-yellow-500 border-yellow-500/30">
+                    <Clock className="w-3 h-3 mr-1" />
+                    Q4 2025
+                  </Badge>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Notification Signup */}
+            <div className="text-center">
+              <div className="inline-block bg-gradient-to-r from-[#836EF9]/10 to-[#A0055D]/10 rounded-2xl p-8 border border-[#836EF9]/20">
+                <Bell className="w-16 h-16 text-[#836EF9] mx-auto mb-4" />
+                <h3 className="text-2xl font-bold text-white mb-3">
+                  Be the First to Know
+                </h3>
+                <p className="text-[#FBFAF9]/80 mb-6 max-w-md mx-auto">
+                  Want early access to Invest to Earn features? Connect your wallet to get notified when these features launch.
+                </p>
+                {auth.isAuthenticated && wallet.isConnected ? (
+                  <div className="flex items-center justify-center gap-2 text-green-400">
+                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                    <span className="font-medium">You'll be notified when available!</span>
+                  </div>
+                ) : (
+                  <Button 
+                    className="bg-gradient-to-r from-[#836EF9] to-[#A0055D] hover:from-[#836EF9]/80 hover:to-[#A0055D]/80 text-white px-8 py-3 text-lg font-semibold"
+                    onClick={() => {
+                      // Scroll to wallet connection section
+                      document.querySelector('.max-w-md.mx-auto')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    <Bell className="w-5 h-5 mr-2" />
+                    Get Notified
+                  </Button>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Call to Action */}
         <section className="bg-gradient-to-r from-[#200052] to-[#400080] py-16">
           <div className="max-w-2xl mx-auto text-center">
