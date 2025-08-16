@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import GameCard from "./components/GameCard";
 import SnakeGame from "./components/SnakeGame";
 import GasDodgerGame from "./components/GasDodgerGame";
