@@ -88,22 +88,91 @@ const GasDodgerGame = ({ onBack, game }) => {
   };
 
   const resetGame = useCallback(() => {
-    setPlayer({ x: GAME_WIDTH / 2 - PLAYER_SIZE / 2, y: GAME_HEIGHT - 50 });
+    setPlayer({ x: GAME_WIDTH / 2 - PLAYER_SIZE / 2, y: GAME_HEIGHT - 60 });
     setObstacles([]);
+    setPowerUps([]);
+    setParticles([]);
     setGameStarted(false);
     setGameOver(false);
     setScore(0);
     setIsPaused(false);
-    setSpeed(2);
+    setSpeed(4);
+    setCombo(0);
+    setMaxCombo(0);
+    setInvulnerable(false);
+    setBoost(false);
+    setLives(3);
     setGameStartTime(null);
   }, []);
 
+  const createParticle = useCallback((x, y, color = '#836EF9', count = 5) => {
+    const newParticles = [];
+    for (let i = 0; i < count; i++) {
+      newParticles.push({
+        id: Math.random(),
+        x: x,
+        y: y,
+        vx: (Math.random() - 0.5) * 6,
+        vy: (Math.random() - 0.5) * 6,
+        color,
+        life: 30,
+        maxLife: 30
+      });
+    }
+    setParticles(prev => [...prev, ...newParticles]);
+  }, []);
+
   const generateObstacle = useCallback(() => {
+    const obstacleTypes = [
+      { type: 'gas-fee', weight: 0.25, color: '#ef4444', points: 50 },
+      { type: 'eth-bomb', weight: 0.15, color: '#f59e0b', points: 100 },
+      { type: 'regular', weight: 0.45, color: '#6b7280', points: 20 },
+      { type: 'big-gas', weight: 0.15, color: '#dc2626', points: 200, size: 1.5 }
+    ];
+    
+    const random = Math.random();
+    let cumulativeWeight = 0;
+    let selectedType = obstacleTypes[0];
+    
+    for (const type of obstacleTypes) {
+      cumulativeWeight += type.weight;
+      if (random <= cumulativeWeight) {
+        selectedType = type;
+        break;
+      }
+    }
+
     return {
       id: Math.random(),
       x: Math.random() * (GAME_WIDTH - OBSTACLE_WIDTH),
       y: -OBSTACLE_HEIGHT,
-      type: Math.random() > 0.7 ? 'gas-fee' : 'regular' // 30% chance for special gas fee obstacles
+      type: selectedType.type,
+      color: selectedType.color,
+      points: selectedType.points,
+      size: selectedType.size || 1,
+      rotation: 0,
+      rotationSpeed: (Math.random() - 0.5) * 5
+    };
+  }, []);
+
+  const generatePowerUp = useCallback(() => {
+    const powerUpTypes = [
+      { type: 'shield', color: '#10b981', duration: 5000 },
+      { type: 'boost', color: '#f59e0b', duration: 3000 },
+      { type: 'life', color: '#ef4444', duration: 0 },
+      { type: 'points', color: '#8b5cf6', duration: 0 }
+    ];
+    
+    const selectedType = powerUpTypes[Math.floor(Math.random() * powerUpTypes.length)];
+    
+    return {
+      id: Math.random(),
+      x: Math.random() * (GAME_WIDTH - 30),
+      y: -30,
+      type: selectedType.type,
+      color: selectedType.color,
+      duration: selectedType.duration,
+      pulse: 0
     };
   }, []);
 
