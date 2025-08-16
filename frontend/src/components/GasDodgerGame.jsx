@@ -684,7 +684,7 @@ const GasDodgerGame = ({ onBack, game }) => {
               <CardContent className="space-y-3 text-[#FBFAF9]">
                 <div className="flex justify-between">
                   <span>Move:</span>
-                  <span>← → Arrow Keys</span>
+                  <span>← → ↑ ↓ Arrow Keys</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Pause:</span>
@@ -692,11 +692,15 @@ const GasDodgerGame = ({ onBack, game }) => {
                 </div>
                 <div className="flex justify-between">
                   <span>Objective:</span>
-                  <span>Avoid obstacles</span>
+                  <span>Dodge & survive!</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Red obstacles:</span>
-                  <span>Gas fees!</span>
+                <div className="text-sm space-y-1">
+                  <div className="text-red-400">⛽ Gas Fee (-1 life)</div>
+                  <div className="text-orange-400">💣 ETH Bomb (-1 life)</div>
+                  <div className="text-green-400">🛡️ Shield (protection)</div>
+                  <div className="text-orange-400">🚀 Speed Boost</div>
+                  <div className="text-red-400">❤️ Extra Life</div>
+                  <div className="text-purple-400">💎 Bonus Points</div>
                 </div>
               </CardContent>
             </Card>
