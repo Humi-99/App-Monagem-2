@@ -270,6 +270,18 @@ async def get_platform_stats(db: Database = Depends(get_database)):
     """Get platform statistics"""
     return await db.get_platform_stats()
 
+@api_router.post("/admin/activate-game/{game_id}")
+async def activate_game(game_id: str, db: Database = Depends(get_database)):
+    """Activate a game (admin endpoint)"""
+    result = await db.db.games.update_one(
+        {"id": game_id}, 
+        {"$set": {"is_active": True}}
+    )
+    if result.modified_count > 0:
+        return {"success": True, "message": f"Game {game_id} activated"}
+    else:
+        return {"success": False, "message": "Game not found or already active"}
+
 # Include the router in the main app
 app.include_router(api_router)
 
