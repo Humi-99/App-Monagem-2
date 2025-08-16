@@ -7,6 +7,7 @@ import GameCard from "./components/GameCard";
 import SnakeGame from "./components/SnakeGame";
 import GasDodgerGame from "./components/GasDodgerGame";
 import WalletConnection from "./components/WalletConnection";
+import DonationSystem from "./components/DonationSystem";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./components/ui/card";
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
@@ -17,7 +18,7 @@ import { useAuth } from "./contexts/AuthContext";
 import { useWallet } from "./contexts/WalletContext";
 import gamesService from "./services/games";
 import challengesService from "./services/challenges";
-import { Trophy, Target, Calendar, Zap, Users, Gamepad2, Wallet, Network, TrendingUp, Clock, Bell, Sparkles } from "lucide-react";
+import { Trophy, Target, Calendar, Zap, Users, Gamepad2, Wallet, Network, TrendingUp, Clock, Bell, Sparkles, Heart } from "lucide-react";
 
 const Home = () => {
   const [currentView, setCurrentView] = useState('home');
