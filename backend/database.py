@@ -2,7 +2,10 @@ from motor.motor_asyncio import AsyncIOMotorClient
 from datetime import datetime, timedelta
 from typing import List, Optional, Dict, Any
 import os
+import logging
 from models import *
+
+logger = logging.getLogger(__name__)
 
 class Database:
     def __init__(self, client: AsyncIOMotorClient):
