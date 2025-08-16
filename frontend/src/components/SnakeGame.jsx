@@ -452,9 +452,37 @@ const SnakeGame = ({ onBack, game }) => {
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white text-2xl">Snake Game</CardTitle>
-                  <div className="flex items-center space-x-2">
-                    <span className="text-[#FBFAF9] font-semibold">Score: {score}</span>
+                  <CardTitle className="text-white text-2xl">🐍 Ultimate Snake Adventure</CardTitle>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[#FBFAF9] font-semibold text-lg">Score: {score.toLocaleString()}</span>
+                    <Badge className="bg-[#A0055D] text-white">Level {level}</Badge>
+                    {combo > 5 && (
+                      <Badge className="bg-yellow-500 text-black font-bold animate-pulse">
+                        🔥 COMBO: {combo}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Status indicators */}
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center space-x-4 text-sm text-[#FBFAF9]">
+                    <span>Length: {snake.length}</span>
+                    <span>Speed: {Math.round((250 - gameSpeed) / 10)}x</span>
+                    <span>Max Combo: {maxCombo}</span>
+                  </div>
+                  
+                  <div className="flex space-x-2">
+                    {invulnerable && (
+                      <Badge className="bg-green-500 text-white text-xs animate-pulse">
+                        🛡️ SHIELD
+                      </Badge>
+                    )}
+                    {doublePoints && (
+                      <Badge className="bg-orange-500 text-white text-xs animate-pulse">
+                        💎 2X POINTS
+                      </Badge>
+                    )}
                   </div>
                 </div>
               </CardHeader>
