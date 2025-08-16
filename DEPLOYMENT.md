@@ -1,10 +1,10 @@
 # MoanGem Deployment Guide
 
-This guide explains how to deploy the MoanGem gaming platform to Vercel.
+This guide explains how to deploy the MoanGem blockchain gaming platform to Vercel.
 
 ## Frontend-Only Deployment to Vercel
 
-The 404 error you were experiencing has been fixed! Here's what was causing it and how it's now resolved:
+The 404 error issue has been resolved! Here's what was causing it and how it's now fixed:
 
 ### The Problem
 - React Router handles client-side routing
@@ -57,6 +57,18 @@ For a complete deployment with backend functionality:
 2. Update `REACT_APP_BACKEND_URL` in Vercel environment variables
 3. Ensure backend has proper CORS configuration
 
+## Games Available
+
+### 🦔 Spiky's Gas-Free Adventure
+- Enhanced dodging gameplay with adorable character
+- Multiple power-ups and combo system
+- Dynamic difficulty scaling
+
+### 🐍 Ultimate Snake Adventure
+- Modern Snake with blockchain rewards
+- Special foods and power-ups
+- Level progression system
+
 ## Troubleshooting
 
 ### Still getting 404 errors?
@@ -70,3 +82,14 @@ For a complete deployment with backend functionality:
 3. Check that API fallbacks are working (should show mock data)
 
 The app is now configured to work perfectly on Vercel with proper routing! 🚀
+
+## Monad Blockchain Integration
+
+All smart contracts and blockchain interactions are designed for the Monad network:
+- Ultra-fast transaction processing
+- Low gas fees for optimal gaming experience  
+- EVM compatibility for seamless development
+
+---
+
+**Built by Humi for the Monad ecosystem** ⚡
