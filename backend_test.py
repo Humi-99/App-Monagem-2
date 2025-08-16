@@ -11,7 +11,7 @@ import os
 from datetime import datetime
 
 # Get backend URL from environment
-BACKEND_URL = "https://monad-chain-setup.preview.emergentagent.com/api"
+BACKEND_URL = "https://crypto-donate-pipe.preview.emergentagent.com/api"
 
 class MoanGemAPITester:
     def __init__(self):
