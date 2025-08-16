@@ -100,6 +100,21 @@ class DonationService:
     def build_donation_transaction(self, donor_address: str, amount: float) -> Dict[str, Any]:
         """Build the donation transaction"""
         try:
+            if self.mock_mode:
+                # Return mock transaction for testing
+                return {
+                    "transaction": {
+                        'to': Web3.to_checksum_address(self.contract_address),
+                        'value': Web3.to_wei(amount, 'ether'),
+                        'gas': 21000,
+                        'gasPrice': 20000000000,  # 20 gwei
+                        'nonce': 1,
+                        'chainId': self.chain_id
+                    },
+                    "success": True,
+                    "mock_mode": True
+                }
+            
             # Convert amount to wei
             amount_wei = Web3.to_wei(amount, 'ether')
             
