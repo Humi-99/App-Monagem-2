@@ -26,7 +26,7 @@ export const mockGames = [
   {
     id: 1,
     name: "Snake Game",
-    description: "Classic snake gameplay with crypto power-ups and collectibles",
+    description: "Ultimate Snake adventure with power-ups, combos, and MONAD rewards",
     category: "Retro",
     thumbnail: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
     playCount: 1205,
