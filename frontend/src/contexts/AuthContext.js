@@ -119,6 +119,11 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     
+    // Also disconnect wallet
+    if (wallet && wallet.disconnect) {
+      wallet.disconnect();
+    }
+    
     toast({
       title: "Wallet Disconnected",
       description: "You have been logged out successfully.",
