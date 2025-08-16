@@ -64,6 +64,9 @@ const Home = () => {
     if (game.name === 'Snake Game' && game.is_active) {
       setCurrentView('snake');
       setSelectedGame(game);
+    } else if (game.name === 'Gas-Free Dodger' && game.is_active) {
+      setCurrentView('gas-dodger');
+      setSelectedGame(game);
     } else {
       // For other games, show coming soon message
       alert(`${game.name} is coming soon! Stay tuned for updates.`);
