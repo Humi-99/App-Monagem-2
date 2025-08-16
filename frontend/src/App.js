@@ -93,6 +93,10 @@ const Home = () => {
     return <SnakeGame onBack={handleBackToHome} game={selectedGame} />;
   }
 
+  if (currentView === 'gas-dodger') {
+    return <GasDodgerGame onBack={handleBackToHome} game={selectedGame} />;
+  }
+
   return (
     <div className="min-h-screen bg-[#200052]">
       <Header />
