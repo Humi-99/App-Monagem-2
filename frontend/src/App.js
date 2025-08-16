@@ -264,12 +264,14 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <AuthProvider>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-          <Toaster />
-        </AuthProvider>
+        <WalletProvider>
+          <AuthProvider>
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+            <Toaster />
+          </AuthProvider>
+        </WalletProvider>
       </BrowserRouter>
     </div>
   );
