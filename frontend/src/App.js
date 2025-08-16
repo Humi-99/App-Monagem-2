@@ -86,6 +86,10 @@ const Home = () => {
     setSelectedGame(null);
   };
 
+  const handleViewDonations = () => {
+    setCurrentView('donations');
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#200052] flex items-center justify-center">
