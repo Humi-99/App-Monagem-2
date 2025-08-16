@@ -278,7 +278,7 @@ class Database:
                     category="Arcade",
                     thumbnail="https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop",
                     rewards=["ETH rewards", "Dodge NFTs"],
-                    is_active=False
+                    is_active=True
                 ),
                 Game(
                     id="solitaire-blitz",
