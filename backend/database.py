@@ -329,11 +329,16 @@ class Database:
                 )
             else:
                 # Find most recent pending donation (fallback)
-                await self.db.donations.update_one(
+                # First find the most recent pending donation
+                recent_donation = await self.db.donations.find_one(
                     {"status": "prepared"},
-                    {"$set": {"transaction_hash": tx_hash, "status": "pending"}},
                     sort=[("timestamp", -1)]
                 )
+                if recent_donation:
+                    await self.db.donations.update_one(
+                        {"_id": recent_donation["_id"]},
+                        {"$set": {"transaction_hash": tx_hash, "status": "pending"}}
+                    )
         except Exception as e:
             logger.error(f"Error updating donation tx hash: {e}")
             raise
