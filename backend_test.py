@@ -391,6 +391,218 @@ class MoanGemAPITester:
         except Exception as e:
             self.log_test("User Stats", False, f"Error: {str(e)}")
             return False
+
+    # Donation System Tests
+    def test_donation_gas_estimation(self):
+        """Test donation gas estimation endpoint"""
+        try:
+            # Test with valid parameters
+            params = {
+                "amount": 1.0,
+                "donor_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567"
+            }
+            
+            response = requests.get(f"{self.base_url}/donations/estimate-gas", params=params)
+            
+            if response.status_code == 200:
+                data = response.json()
+                expected_fields = ["gas_price_gwei", "gas_estimate", "total_fee_mon", "user_balance_mon"]
+                if any(field in data for field in expected_fields):
+                    self.log_test("Donation Gas Estimation", True, f"Gas estimation successful - Fee: {data.get('total_fee_mon', 'N/A')} MON", data)
+                    return True
+                else:
+                    self.log_test("Donation Gas Estimation", False, "Missing expected gas estimation fields", data)
+                    return False
+            else:
+                self.log_test("Donation Gas Estimation", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+        except Exception as e:
+            self.log_test("Donation Gas Estimation", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_creation(self):
+        """Test donation creation endpoint"""
+        if not self.auth_token:
+            self.log_test("Donation Creation", False, "No auth token available")
+            return False
+            
+        try:
+            headers = {"Authorization": f"Bearer {self.auth_token}"}
+            
+            # Test donation creation
+            donation_data = {
+                "amount": 0.5,
+                "donor_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+                "message": "Test donation for MoanGem platform"
+            }
+            
+            response = requests.post(f"{self.base_url}/donations/create", json=donation_data, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if data.get("success"):
+                    self.log_test("Donation Creation", True, f"Donation created successfully - Amount: {data.get('amount')} MON", data)
+                    return True
+                else:
+                    self.log_test("Donation Creation", False, f"Donation creation failed: {data.get('message', 'Unknown error')}", data)
+                    return False
+            else:
+                self.log_test("Donation Creation", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+        except Exception as e:
+            self.log_test("Donation Creation", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_validation(self):
+        """Test donation input validation"""
+        if not self.auth_token:
+            self.log_test("Donation Validation", False, "No auth token available")
+            return False
+            
+        try:
+            headers = {"Authorization": f"Bearer {self.auth_token}"}
+            
+            # Test with invalid amount (negative)
+            invalid_donation = {
+                "amount": -1.0,
+                "donor_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+                "message": "Invalid donation test"
+            }
+            
+            response = requests.post(f"{self.base_url}/donations/create", json=invalid_donation, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if not data.get("success") and "positive" in data.get("message", "").lower():
+                    self.log_test("Donation Validation (Negative Amount)", True, f"Correctly rejected negative amount: {data.get('message')}", data)
+                    validation_passed = True
+                else:
+                    self.log_test("Donation Validation (Negative Amount)", False, f"Should reject negative amounts but got: {data}", data)
+                    validation_passed = False
+            else:
+                self.log_test("Donation Validation (Negative Amount)", False, f"HTTP {response.status_code}: {response.text}")
+                validation_passed = False
+            
+            # Test with invalid address
+            invalid_address_donation = {
+                "amount": 1.0,
+                "donor_address": "invalid_address",
+                "message": "Invalid address test"
+            }
+            
+            response = requests.post(f"{self.base_url}/donations/create", json=invalid_address_donation, headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if not data.get("success") and "address" in data.get("message", "").lower():
+                    self.log_test("Donation Validation (Invalid Address)", True, f"Correctly rejected invalid address: {data.get('message')}", data)
+                    validation_passed = validation_passed and True
+                else:
+                    self.log_test("Donation Validation (Invalid Address)", False, f"Should reject invalid addresses but got: {data}", data)
+                    validation_passed = False
+            else:
+                self.log_test("Donation Validation (Invalid Address)", False, f"HTTP {response.status_code}: {response.text}")
+                validation_passed = False
+            
+            return validation_passed
+            
+        except Exception as e:
+            self.log_test("Donation Validation", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_authentication(self):
+        """Test donation endpoint authentication requirements"""
+        try:
+            # Test without authentication
+            donation_data = {
+                "amount": 1.0,
+                "donor_address": "0x742d35Cc6634C0532925a3b8D4C9db96590c4567",
+                "message": "Unauthenticated test"
+            }
+            
+            response = requests.post(f"{self.base_url}/donations/create", json=donation_data)
+            
+            if response.status_code == 401 or response.status_code == 403:
+                self.log_test("Donation Authentication", True, f"Correctly requires authentication (HTTP {response.status_code})", {"status": response.status_code})
+                return True
+            else:
+                self.log_test("Donation Authentication", False, f"Should require authentication but got HTTP {response.status_code}", {"status": response.status_code})
+                return False
+        except Exception as e:
+            self.log_test("Donation Authentication", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_stats(self):
+        """Test donation statistics endpoint"""
+        try:
+            response = requests.get(f"{self.base_url}/donations/stats")
+            
+            if response.status_code == 200:
+                data = response.json()
+                expected_fields = ["total_donations", "donation_count"]
+                if all(field in data for field in expected_fields):
+                    self.log_test("Donation Stats", True, f"Stats retrieved - Total: {data.get('total_donations', 0)} MON, Count: {data.get('donation_count', 0)}", data)
+                    return True
+                else:
+                    missing_fields = [field for field in expected_fields if field not in data]
+                    self.log_test("Donation Stats", False, f"Missing fields: {missing_fields}", data)
+                    return False
+            else:
+                self.log_test("Donation Stats", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+        except Exception as e:
+            self.log_test("Donation Stats", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_status_check(self):
+        """Test donation status checking with mock transaction hash"""
+        try:
+            # Test with a mock transaction hash
+            mock_tx_hash = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+            
+            response = requests.get(f"{self.base_url}/donations/status/{mock_tx_hash}")
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "transaction_hash" in data and "blockchain_status" in data:
+                    self.log_test("Donation Status Check", True, f"Status check working - TX: {data.get('transaction_hash')}, Status: {data.get('blockchain_status', {}).get('status', 'unknown')}", data)
+                    return True
+                else:
+                    self.log_test("Donation Status Check", False, "Missing expected status fields", data)
+                    return False
+            else:
+                self.log_test("Donation Status Check", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+        except Exception as e:
+            self.log_test("Donation Status Check", False, f"Error: {str(e)}")
+            return False
+
+    def test_donation_confirm(self):
+        """Test donation confirmation endpoint"""
+        if not self.auth_token:
+            self.log_test("Donation Confirmation", False, "No auth token available")
+            return False
+            
+        try:
+            headers = {"Authorization": f"Bearer {self.auth_token}"}
+            mock_tx_hash = "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef"
+            
+            response = requests.post(f"{self.base_url}/donations/confirm/{mock_tx_hash}", headers=headers)
+            
+            if response.status_code == 200:
+                data = response.json()
+                if "success" in data and "transaction_hash" in data:
+                    self.log_test("Donation Confirmation", True, f"Confirmation endpoint working - Success: {data.get('success')}, TX: {data.get('transaction_hash')}", data)
+                    return True
+                else:
+                    self.log_test("Donation Confirmation", False, "Missing expected confirmation fields", data)
+                    return False
+            else:
+                self.log_test("Donation Confirmation", False, f"HTTP {response.status_code}: {response.text}")
+                return False
+        except Exception as e:
+            self.log_test("Donation Confirmation", False, f"Error: {str(e)}")
+            return False
     
     def run_all_tests(self):
         """Run all backend tests in sequence"""
