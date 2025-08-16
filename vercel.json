@@ -1,0 +1,38 @@
+{
+  "version": 2,
+  "name": "moangem-frontend",
+  "buildCommand": "cd frontend && yarn build",
+  "outputDirectory": "frontend/build",
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "status": 404,
+      "headers": {
+        "x-custom-message": "API routes not available in frontend-only deployment"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        }
+      ]
+    }
+  ]
+}
