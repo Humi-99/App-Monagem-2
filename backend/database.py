@@ -305,3 +305,108 @@ class Database:
         
         # Create daily challenges
         await self.create_daily_challenges()
+
+    # Donation Methods
+    async def create_donation(self, donation):
+        """Create a new donation record"""
+        try:
+            result = await self.db.donations.insert_one(donation.dict())
+            return str(result.inserted_id)
+        except Exception as e:
+            logger.error(f"Error creating donation: {e}")
+            raise
+
+    async def update_donation_tx_hash(self, tx_hash: str, donation_id: Optional[str] = None):
+        """Update donation with transaction hash"""
+        try:
+            if donation_id:
+                await self.db.donations.update_one(
+                    {"id": donation_id},
+                    {"$set": {"transaction_hash": tx_hash, "status": "pending"}}
+                )
+            else:
+                # Find most recent pending donation (fallback)
+                await self.db.donations.update_one(
+                    {"status": "prepared"},
+                    {"$set": {"transaction_hash": tx_hash, "status": "pending"}},
+                    sort=[("timestamp", -1)]
+                )
+        except Exception as e:
+            logger.error(f"Error updating donation tx hash: {e}")
+            raise
+
+    async def update_donation_status(self, tx_hash: str, status: str):
+        """Update donation status"""
+        try:
+            await self.db.donations.update_one(
+                {"transaction_hash": tx_hash},
+                {"$set": {"status": status}}
+            )
+        except Exception as e:
+            logger.error(f"Error updating donation status: {e}")
+            raise
+
+    async def get_donation_by_tx(self, tx_hash: str):
+        """Get donation by transaction hash"""
+        try:
+            donation = await self.db.donations.find_one({"transaction_hash": tx_hash})
+            return donation
+        except Exception as e:
+            logger.error(f"Error getting donation by tx: {e}")
+            raise
+
+    async def get_donations_stats(self):
+        """Get donation statistics"""
+        try:
+            pipeline = [
+                {"$match": {"status": "confirmed"}},
+                {"$group": {
+                    "_id": None,
+                    "total_donations": {"$sum": "$amount"},
+                    "donation_count": {"$sum": 1}
+                }}
+            ]
+            
+            result = await self.db.donations.aggregate(pipeline).to_list(1)
+            
+            if result:
+                stats = result[0]
+                # Get top donor
+                top_donor_pipeline = [
+                    {"$match": {"status": "confirmed"}},
+                    {"$group": {
+                        "_id": "$donor_address",
+                        "total_donated": {"$sum": "$amount"}
+                    }},
+                    {"$sort": {"total_donated": -1}},
+                    {"$limit": 1}
+                ]
+                
+                top_donor = await self.db.donations.aggregate(top_donor_pipeline).to_list(1)
+                
+                # Get recent donations
+                recent = await self.db.donations.find(
+                    {"status": "confirmed"}
+                ).sort("timestamp", -1).limit(10).to_list(10)
+                
+                return {
+                    "total_donations": stats.get("total_donations", 0),
+                    "donation_count": stats.get("donation_count", 0),
+                    "top_donor": top_donor[0]["_id"] if top_donor else None,
+                    "recent_donations": recent
+                }
+            else:
+                return {
+                    "total_donations": 0,
+                    "donation_count": 0,
+                    "top_donor": None,
+                    "recent_donations": []
+                }
+        except Exception as e:
+            logger.error(f"Error getting donation stats: {e}")
+            return {
+                "total_donations": 0,
+                "donation_count": 0,
+                "top_donor": None,
+                "recent_donations": []
+            }
