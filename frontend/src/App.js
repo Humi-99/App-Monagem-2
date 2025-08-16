@@ -253,6 +253,7 @@ const Home = () => {
         </section>
       </main>
 
+      <Footer />
       <Toaster />
     </div>
   );
