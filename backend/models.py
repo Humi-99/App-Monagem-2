@@ -153,6 +153,7 @@ class PlatformStats(BaseModel):
 class WalletConnect(BaseModel):
     address: str
     signature: Optional[str] = None
+    message: Optional[str] = None
 
 class AuthResponse(BaseModel):
     user: User
