@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
-import { Wallet, Trophy, Settings, User, Coins, Menu, X } from 'lucide-react';
+import { Wallet, Trophy, Settings, User, Coins, Menu, X, Network, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import { useWallet } from '../contexts/WalletContext';
 
 const Header = ({ onWalletConnect, onProfileClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
