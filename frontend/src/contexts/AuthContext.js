@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import authService from '../services/auth';
 import { useToast } from '../hooks/use-toast';
+import { useWallet } from './WalletContext';
 
 const AuthContext = createContext();
 
