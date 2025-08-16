@@ -705,10 +705,10 @@ const SnakeGame = ({ onBack, game }) => {
               </CardContent>
             </Card>
 
-            {/* Rewards */}
+            {/* Enhanced Rewards */}
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
-                <CardTitle className="text-white">Crypto Rewards</CardTitle>
+                <CardTitle className="text-white">MONAD Rewards</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-[#FBFAF9]">
                 <div className="flex justify-between">
@@ -716,12 +716,23 @@ const SnakeGame = ({ onBack, game }) => {
                   <span className="text-[#A0055D]">1 MONAD token</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>High Score:</span>
-                  <span className="text-[#836EF9]">NFT reward</span>
+                  <span>Combo bonus:</span>
+                  <span className="text-yellow-400">+10% per level</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Perfect game:</span>
-                  <span className="text-yellow-400">Bonus multiplier</span>
+                  <span>Level up:</span>
+                  <span className="text-[#836EF9]">Faster gameplay</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Double points:</span>
+                  <span className="text-orange-400">2x multiplier</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>High Score:</span>
+                  <span className="text-purple-400">NFT reward</span>
+                </div>
+                <div className="text-center mt-4 p-2 bg-gradient-to-r from-[#836EF9]/20 to-[#A0055D]/20 rounded-lg">
+                  <div className="text-yellow-400 font-bold">🐍 Build the longest snake on Monad! 🐍</div>
                 </div>
               </CardContent>
             </Card>
