@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./com
 import { Button } from "./components/ui/button";
 import { Badge } from "./components/ui/badge";
 import { Toaster } from "./components/ui/toaster";
+import { WalletProvider } from "./contexts/WalletContext";
 import { AuthProvider } from "./contexts/AuthContext";
 import gamesService from "./services/games";
 import challengesService from "./services/challenges";
