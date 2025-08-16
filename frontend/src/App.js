@@ -17,7 +17,7 @@ import { useAuth } from "./contexts/AuthContext";
 import { useWallet } from "./contexts/WalletContext";
 import gamesService from "./services/games";
 import challengesService from "./services/challenges";
-import { Trophy, Target, Calendar, Zap, Users, Gamepad2, Wallet, Network } from "lucide-react";
+import { Trophy, Target, Calendar, Zap, Users, Gamepad2, Wallet, Network, TrendingUp, Clock, Bell, Sparkles } from "lucide-react";
 
 const Home = () => {
   const [currentView, setCurrentView] = useState('home');
