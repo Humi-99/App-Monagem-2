@@ -277,7 +277,53 @@ backend:
           comment: "JWT authentication system working correctly. Token creation, verification, and user extraction from tokens all functioning properly."
 
 frontend:
-  # Frontend testing not performed as per testing agent instructions
+  - task: "WalletConnection Component"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/components/WalletConnection.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Created comprehensive wallet connection component with MetaMask detection, network status, balance display, and faucet integration"
+
+  - task: "Updated Auth Context"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/contexts/AuthContext.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Updated AuthContext to use real wallet connections with message signing instead of mock wallet connections"
+
+  - task: "Header Wallet Status"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/components/Header.jsx"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Updated header to show wallet balance, network status, and connection warnings"
+
+  - task: "Landing Page Integration"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Updated landing page CTA section with conditional wallet connection component and connected user status"
 
 metadata:
   created_by: "testing_agent"
