@@ -3,6 +3,7 @@ from fastapi.security import HTTPBearer
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
+from web3 import Web3
 import os
 import logging
 from pathlib import Path
