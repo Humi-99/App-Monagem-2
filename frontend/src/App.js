@@ -109,6 +109,29 @@ const Home = () => {
     return <GasDodgerGame onBack={handleBackToHome} game={selectedGame} />;
   }
 
+  if (currentView === 'donations') {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
+          <div className="mb-6">
+            <Button 
+              variant="outline" 
+              onClick={handleBackToHome}
+              className="mb-4"
+            >
+              ← Back to Home
+            </Button>
+            <h1 className="text-3xl font-bold mb-2">Support MoanGem</h1>
+            <p className="text-gray-600">Help us build the future of blockchain gaming</p>
+          </div>
+          <DonationSystem />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#200052]">
       <Header />
