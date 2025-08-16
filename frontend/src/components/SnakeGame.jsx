@@ -7,14 +7,18 @@ import { useAuth } from '../contexts/AuthContext';
 import gamesService from '../services/games';
 import { useToast } from '../hooks/use-toast';
 
-const GRID_SIZE = 20;
-const INITIAL_SNAKE = [{ x: 10, y: 10 }];
-const INITIAL_FOOD = { x: 15, y: 15 };
+const GRID_SIZE = 25;
+const INITIAL_SNAKE = [{ x: 12, y: 12 }];
+const INITIAL_FOOD = { x: 18, y: 18 };
 const INITIAL_DIRECTION = { x: 0, y: 1 };
 
 const SnakeGame = ({ onBack, game }) => {
   const [snake, setSnake] = useState(INITIAL_SNAKE);
   const [food, setFood] = useState(INITIAL_FOOD);
+  const [specialFood, setSpecialFood] = useState(null);
+  const [powerUps, setPowerUps] = useState([]);
+  const [obstacles, setObstacles] = useState([]);
+  const [particles, setParticles] = useState([]);
   const [direction, setDirection] = useState(INITIAL_DIRECTION);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
@@ -24,6 +28,12 @@ const SnakeGame = ({ onBack, game }) => {
   const [tokens, setTokens] = useState(0);
   const [gameStartTime, setGameStartTime] = useState(null);
   const [isSubmittingScore, setIsSubmittingScore] = useState(false);
+  const [gameSpeed, setGameSpeed] = useState(200);
+  const [combo, setCombo] = useState(0);
+  const [maxCombo, setMaxCombo] = useState(0);
+  const [invulnerable, setInvulnerable] = useState(false);
+  const [doublePoints, setDoublePoints] = useState(false);
+  const [level, setLevel] = useState(1);
   const gameLoopRef = useRef();
   
   const { user, isAuthenticated, updateUserStats } = useAuth();
