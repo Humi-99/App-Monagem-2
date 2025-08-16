@@ -610,7 +610,7 @@ class MoanGemAPITester:
         print(f"Backend URL: {self.base_url}")
         print("=" * 60)
         
-        # Test sequence - focusing on wallet authentication tests first
+        # Test sequence - focusing on wallet authentication tests first, then donation system
         tests = [
             ("Health Check", self.test_health_check),
             ("Legacy Wallet Authentication", self.test_wallet_authentication_legacy),
@@ -625,7 +625,15 @@ class MoanGemAPITester:
             ("Global Leaderboard", self.test_global_leaderboard),
             ("Daily Challenges", self.test_daily_challenges),
             ("Platform Stats", self.test_platform_stats),
-            ("User Stats", self.test_user_stats)
+            ("User Stats", self.test_user_stats),
+            # Donation System Tests
+            ("Donation Gas Estimation", self.test_donation_gas_estimation),
+            ("Donation Authentication", self.test_donation_authentication),
+            ("Donation Creation", self.test_donation_creation),
+            ("Donation Validation", self.test_donation_validation),
+            ("Donation Stats", self.test_donation_stats),
+            ("Donation Status Check", self.test_donation_status_check),
+            ("Donation Confirmation", self.test_donation_confirm)
         ]
         
         passed = 0
