@@ -506,38 +506,91 @@ const GasDodgerGame = ({ onBack, game }) => {
                     className="relative bg-gradient-to-b from-blue-900 to-purple-900 border-2 border-[#836EF9]/50 rounded-lg overflow-hidden"
                     style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
                   >
-                    {/* Player */}
+                    {/* Player with effects */}
                     <div
-                      className="absolute bg-[#836EF9] rounded-full shadow-lg transition-all duration-75"
+                      className={`absolute rounded-full shadow-lg transition-all duration-75 ${
+                        invulnerable ? 'animate-pulse bg-green-400' : 'bg-[#836EF9]'
+                      } ${boost ? 'ring-4 ring-orange-400' : ''}`}
                       style={{
                         width: PLAYER_SIZE,
                         height: PLAYER_SIZE,
                         left: player.x,
                         top: player.y,
-                        boxShadow: '0 0 10px #836EF9'
+                        boxShadow: invulnerable 
+                          ? '0 0 20px #10b981' 
+                          : boost 
+                            ? '0 0 15px #f59e0b'
+                            : '0 0 10px #836EF9',
+                        transform: boost ? 'scale(1.2)' : 'scale(1)',
+                        zIndex: 10
                       }}
-                    />
+                    >
+                      {boost && (
+                        <div className="absolute -inset-2 bg-orange-400 rounded-full animate-ping opacity-25"></div>
+                      )}
+                    </div>
 
-                    {/* Obstacles */}
+                    {/* Particles */}
+                    {particles.map(particle => (
+                      <div
+                        key={particle.id}
+                        className="absolute rounded-full pointer-events-none"
+                        style={{
+                          width: 4,
+                          height: 4,
+                          left: particle.x,
+                          top: particle.y,
+                          backgroundColor: particle.color,
+                          opacity: particle.life / particle.maxLife,
+                          transform: `scale(${particle.life / particle.maxLife})`,
+                          zIndex: 5
+                        }}
+                      />
+                    ))}
+
+                    {/* Enhanced Obstacles */}
                     {obstacles.map(obstacle => (
                       <div
                         key={obstacle.id}
-                        className={`absolute rounded transition-all duration-75 ${
-                          obstacle.type === 'gas-fee' 
-                            ? 'bg-red-500 shadow-red-500/50' 
-                            : 'bg-gray-600 shadow-gray-600/50'
-                        }`}
+                        className={`absolute rounded-lg transition-all duration-75 flex items-center justify-center text-white font-bold text-xs`}
                         style={{
-                          width: OBSTACLE_WIDTH,
-                          height: OBSTACLE_HEIGHT,
+                          width: OBSTACLE_WIDTH * obstacle.size,
+                          height: OBSTACLE_HEIGHT * obstacle.size,
                           left: obstacle.x,
                           top: obstacle.y,
-                          boxShadow: `0 0 8px ${obstacle.type === 'gas-fee' ? 'rgba(239, 68, 68, 0.5)' : 'rgba(75, 85, 99, 0.5)'}`
+                          backgroundColor: obstacle.color,
+                          boxShadow: `0 0 12px ${obstacle.color}`,
+                          transform: `rotate(${obstacle.rotation}deg)`,
+                          zIndex: 2
                         }}
                       >
-                        {obstacle.type === 'gas-fee' && (
-                          <div className="text-white text-xs text-center mt-2 font-bold">GAS</div>
-                        )}
+                        {obstacle.type === 'gas-fee' && '⛽'}
+                        {obstacle.type === 'eth-bomb' && '💣'}
+                        {obstacle.type === 'big-gas' && '🔥'}
+                        {obstacle.type === 'regular' && '⚪'}
+                      </div>
+                    ))}
+
+                    {/* Power-ups */}
+                    {powerUps.map(powerUp => (
+                      <div
+                        key={powerUp.id}
+                        className="absolute rounded-full transition-all duration-75 flex items-center justify-center text-white font-bold text-sm"
+                        style={{
+                          width: 30,
+                          height: 30,
+                          left: powerUp.x,
+                          top: powerUp.y,
+                          backgroundColor: powerUp.color,
+                          boxShadow: `0 0 15px ${powerUp.color}`,
+                          transform: `scale(${1 + Math.sin(powerUp.pulse) * 0.3})`,
+                          zIndex: 3
+                        }}
+                      >
+                        {powerUp.type === 'shield' && '🛡️'}
+                        {powerUp.type === 'boost' && '🚀'}
+                        {powerUp.type === 'life' && '❤️'}
+                        {powerUp.type === 'points' && '💎'}
                       </div>
                     ))}
 
