@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Implement Monad Testnet wallet integration for the MoanGem gaming platform with MetaMask connection, network switching, balance display, and signature verification"
+user_problem_statement: "Implement MON token donation system that integrates with smart contract at 0xC443647582B1484f9Aba3A6C0B98df59918E17e2 on Monad Testnet. The contract will automatically transfer donated MON tokens to the specified receive address."
 
 backend:
   - task: "Monad Testnet Configuration"
