@@ -712,20 +712,27 @@ const GasDodgerGame = ({ onBack, game }) => {
               </CardHeader>
               <CardContent className="space-y-3 text-[#FBFAF9]">
                 <div className="flex justify-between">
-                  <span>5 points =</span>
+                  <span>20 points =</span>
                   <span className="text-[#A0055D]">1 ETH point</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>High Score:</span>
-                  <span className="text-[#836EF9]">NFT reward</span>
+                  <span>Combo bonus:</span>
+                  <span className="text-yellow-400">+10% per combo</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Speed bonus:</span>
-                  <span className="text-yellow-400">Extra multiplier</span>
+                  <span className="text-[#836EF9]">Higher multiplier</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Gas dodge:</span>
-                  <span className="text-green-400">Bonus points</span>
+                  <span>Shield kills:</span>
+                  <span className="text-green-400">2x points!</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>High Score:</span>
+                  <span className="text-purple-400">NFT reward</span>
+                </div>
+                <div className="text-center mt-4 p-2 bg-gradient-to-r from-[#836EF9]/20 to-[#A0055D]/20 rounded-lg">
+                  <div className="text-yellow-400 font-bold">🔥 Build combos for massive points! 🔥</div>
                 </div>
               </CardContent>
             </Card>
