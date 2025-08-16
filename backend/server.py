@@ -56,7 +56,8 @@ async def connect_wallet(
         user, token = await authenticate_wallet(
             wallet_data.address, 
             wallet_data.signature, 
-            db
+            db,
+            wallet_data.message
         )
         
         return AuthResponse(
