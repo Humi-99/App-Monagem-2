@@ -55,9 +55,32 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoading(true);
       
-      // For demo purposes, use mock wallet connection
-      // In production, integrate with MetaMask or other wallet providers
-      const { user: newUser, token } = await authService.mockWalletConnect();
+      // Check if MetaMask is available
+      if (!wallet.isMetaMaskAvailable) {
+        toast({
+          title: "MetaMask Required",
+          description: "Please install MetaMask to connect your wallet.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Connect wallet using WalletContext
+      const walletData = await wallet.connect();
+      if (!walletData) return;
+
+      // Generate authentication message
+      const message = `Sign this message to authenticate with MoanGem:\n\nAddress: ${walletData.address}\nTimestamp: ${Date.now()}`;
+      
+      // Sign the message
+      const signature = await wallet.signMessage(message);
+
+      // Authenticate with backend
+      const { user: newUser, token } = await authService.connectWallet(
+        walletData.address,
+        signature,
+        message
+      );
       
       setUser(newUser);
       setIsAuthenticated(true);
@@ -70,9 +93,19 @@ export const AuthProvider = ({ children }) => {
       return newUser;
     } catch (error) {
       console.error('Wallet connection failed:', error);
+      
+      let errorMessage = 'Failed to connect wallet';
+      if (error.message.includes('User rejected') || error.message.includes('User denied')) {
+        errorMessage = 'Connection cancelled by user';
+      } else if (error.message.includes('MetaMask')) {
+        errorMessage = 'MetaMask connection failed';
+      } else if (error.response?.data?.detail) {
+        errorMessage = error.response.data.detail;
+      }
+      
       toast({
         title: "Connection Failed",
-        description: error.message,
+        description: errorMessage,
         variant: "destructive",
       });
       throw error;
