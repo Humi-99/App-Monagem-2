@@ -10,7 +10,7 @@
       "test": "Health Check",
       "success": true,
       "message": "API is running - MoanGem API is running",
-      "timestamp": "2025-08-16T12:06:40.530401",
+      "timestamp": "2025-08-16T12:07:38.649848",
       "response_data": {
         "message": "MoanGem API is running",
         "version": "1.0.0"
@@ -20,21 +20,21 @@
       "test": "Legacy Wallet Authentication",
       "success": true,
       "message": "User authenticated: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
-      "timestamp": "2025-08-16T12:06:41.055294",
+      "timestamp": "2025-08-16T12:07:39.169598",
       "response_data": {
         "user": {
           "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
           "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
           "username": "",
-          "level": 8,
-          "total_score": 8500,
-          "games_played": 3,
-          "tokens_earned": 850.0,
+          "level": 17,
+          "total_score": 17000,
+          "games_played": 6,
+          "tokens_earned": 1700.0,
           "nfts_owned": 0,
           "joined_at": "2025-08-16T12:05:08.705000",
-          "last_active": "2025-08-16T12:05:13.516000"
+          "last_active": "2025-08-16T12:06:45.813000"
         },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzI0MDEsImlhdCI6MTc1NTM0NjAwMX0.D0zZEhdTlOglDKZVOxrjgwWmLLph25qELLKCyJ30HMw",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzI0NTksImlhdCI6MTc1NTM0NjA1OX0.i0-g1f6ba5OMgo650v5nw4-Lkhip5kIJSruJPSw2GeM",
         "message": "Wallet connected successfully"
       }
     },
@@ -42,14 +42,14 @@
       "test": "Wallet Auth with Message",
       "success": false,
       "message": "Unexpected HTTP 400: {\"detail\":\"Failed to connect wallet: 401: Invalid wallet signature\"}",
-      "timestamp": "2025-08-16T12:06:41.571996",
+      "timestamp": "2025-08-16T12:07:39.713706",
       "response_data": null
     },
     {
       "test": "Invalid Address Test",
       "success": false,
       "message": "SECURITY ISSUE: Malformed address accepted in legacy auth mode",
-      "timestamp": "2025-08-16T12:06:42.098016",
+      "timestamp": "2025-08-16T12:07:40.235293",
       "response_data": {
         "status": 200,
         "security_issue": true
@@ -59,7 +59,7 @@
       "test": "Empty Signature Test",
       "success": false,
       "message": "SECURITY ISSUE: Empty signature accepted",
-      "timestamp": "2025-08-16T12:06:42.623317",
+      "timestamp": "2025-08-16T12:07:40.754714",
       "response_data": {
         "status": 200,
         "security_issue": true
@@ -69,21 +69,21 @@
       "test": "Address Normalization",
       "success": true,
       "message": "Address correctly normalized to lowercase: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
-      "timestamp": "2025-08-16T12:06:43.148753",
+      "timestamp": "2025-08-16T12:07:41.274200",
       "response_data": {
         "user": {
           "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
           "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
           "username": "",
-          "level": 8,
-          "total_score": 8500,
-          "games_played": 3,
-          "tokens_earned": 850.0,
+          "level": 17,
+          "total_score": 17000,
+          "games_played": 6,
+          "tokens_earned": 1700.0,
           "nfts_owned": 0,
           "joined_at": "2025-08-16T12:05:08.705000",
-          "last_active": "2025-08-16T12:05:13.516000"
+          "last_active": "2025-08-16T12:06:45.813000"
         },
-        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzI0MDMsImlhdCI6MTc1NTM0NjAwM30.eAhj6P_o62955mhzAnH-Fg7ZYWVlPtiCNcldB6hGkRA",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNmE0NmY1OTItYTY4NC00MWFlLThmMTktNDMwZmNmZDliODkyIiwid2FsbGV0X2FkZHJlc3MiOiIweDc0MmQzNWNjNjYzNGMwNTMyOTI1YTNiOGQ0YzlkYjk2NTkwYzQ1NjciLCJleHAiOjE3NTU0MzI0NjEsImlhdCI6MTc1NTM0NjA2MX0.8jrEzou5UPhPcIIUUFd_3MbF4cs_v8wgaATS4FEI5AA",
         "message": "Wallet connected successfully"
       }
     },
@@ -91,25 +91,25 @@
       "test": "Get Profile",
       "success": true,
       "message": "Profile retrieved for user: 0x742d35cc6634c0532925a3b8d4c9db96590c4567",
-      "timestamp": "2025-08-16T12:06:43.677253",
+      "timestamp": "2025-08-16T12:07:41.800694",
       "response_data": {
         "id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
         "wallet_address": "0x742d35cc6634c0532925a3b8d4c9db96590c4567",
         "username": "",
-        "level": 8,
-        "total_score": 8500,
-        "games_played": 3,
-        "tokens_earned": 850.0,
+        "level": 17,
+        "total_score": 17000,
+        "games_played": 6,
+        "tokens_earned": 1700.0,
         "nfts_owned": 0,
         "joined_at": "2025-08-16T12:05:08.705000",
-        "last_active": "2025-08-16T12:05:13.516000"
+        "last_active": "2025-08-16T12:06:45.813000"
       }
     },
     {
       "test": "Games List",
       "success": true,
       "message": "Found 4 games including Snake game",
-      "timestamp": "2025-08-16T12:06:44.207146",
+      "timestamp": "2025-08-16T12:07:42.328885",
       "response_data": {
         "games_count": 4,
         "snake_game": {
@@ -118,7 +118,7 @@
           "description": "Classic snake gameplay with crypto power-ups and collectibles",
           "category": "Retro",
           "thumbnail": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=400&h=300&fit=crop",
-          "play_count": 3,
+          "play_count": 6,
           "avg_score": 2833,
           "rewards": [
             "MONAD tokens",
@@ -132,14 +132,14 @@
       "test": "Score Submission",
       "success": true,
       "message": "Successfully submitted 3/3 scores",
-      "timestamp": "2025-08-16T12:06:46.321130",
+      "timestamp": "2025-08-16T12:07:44.416905",
       "response_data": null
     },
     {
       "test": "Snake Leaderboard",
       "success": true,
       "message": "Retrieved leaderboard with 1 entries",
-      "timestamp": "2025-08-16T12:06:46.841162",
+      "timestamp": "2025-08-16T12:07:44.964196",
       "response_data": {
         "entries": 1,
         "top_entry": {
@@ -147,7 +147,7 @@
           "player": "",
           "user_id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
           "score": 4200,
-          "games": 6
+          "games": 9
         }
       }
     },
@@ -155,16 +155,16 @@
       "test": "Global Leaderboard",
       "success": true,
       "message": "Retrieved global leaderboard with 2 entries",
-      "timestamp": "2025-08-16T12:06:47.359948",
+      "timestamp": "2025-08-16T12:07:45.490020",
       "response_data": {
         "entries": 2,
         "top_entry": {
           "rank": 1,
           "player": "",
           "user_id": "6a46f592-a684-41ae-8f19-430fcfd9b892",
-          "total_score": 17000,
-          "games_played": 6,
-          "level": 17
+          "total_score": 25500,
+          "games_played": 9,
+          "level": 25
         }
       }
     },
@@ -172,7 +172,7 @@
       "test": "Daily Challenges",
       "success": true,
       "message": "Retrieved 3 daily challenges",
-      "timestamp": "2025-08-16T12:06:47.884739",
+      "timestamp": "2025-08-16T12:07:46.011333",
       "response_data": {
         "challenges_count": 3,
         "challenges": [
@@ -186,25 +186,25 @@
       "test": "Platform Stats",
       "success": true,
       "message": "Platform stats retrieved successfully",
-      "timestamp": "2025-08-16T12:06:48.405923",
+      "timestamp": "2025-08-16T12:07:46.540910",
       "response_data": {
         "total_players": 2,
-        "total_games_played": 6,
-        "total_rewards_distributed": "$170.0K",
+        "total_games_played": 9,
+        "total_rewards_distributed": "$255.0K",
         "active_players_today": 2
       }
     },
     {
       "test": "User Stats",
       "success": true,
-      "message": "User stats retrieved - Score: 17000, Games: 6, Level: 17",
-      "timestamp": "2025-08-16T12:06:48.925095",
+      "message": "User stats retrieved - Score: 25500, Games: 9, Level: 25",
+      "timestamp": "2025-08-16T12:07:47.069169",
       "response_data": {
-        "total_score": 17000,
-        "games_played": 6,
+        "total_score": 25500,
+        "games_played": 9,
         "rank": 999,
-        "level": 17,
-        "tokens_earned": 1700.0,
+        "level": 25,
+        "tokens_earned": 2550.0,
         "nfts_owned": 0
       }
     },
@@ -212,7 +212,7 @@
       "test": "Donation Gas Estimation",
       "success": true,
       "message": "Gas estimation successful - Fee: 0.00042 MON",
-      "timestamp": "2025-08-16T12:06:49.506128",
+      "timestamp": "2025-08-16T12:07:47.615933",
       "response_data": {
         "gas_price_gwei": 20.0,
         "gas_estimate": 21000,
@@ -227,7 +227,7 @@
       "test": "Donation Authentication",
       "success": true,
       "message": "Correctly requires authentication (HTTP 403)",
-      "timestamp": "2025-08-16T12:06:50.027335",
+      "timestamp": "2025-08-16T12:07:48.134378",
       "response_data": {
         "status": 403
       }
@@ -236,40 +236,40 @@
       "test": "Donation Creation",
       "success": true,
       "message": "Donation created successfully - Amount: 0.5 MON",
-      "timestamp": "2025-08-16T12:06:50.608913",
+      "timestamp": "2025-08-16T12:07:48.670898",
       "response_data": {
         "success": true,
         "transaction_hash": null,
         "message": "Donation prepared successfully. Please sign the transaction in your wallet.",
         "amount": 0.5,
-        "timestamp": "2025-08-16T12:06:50.593803"
+        "timestamp": "2025-08-16T12:07:48.667926"
       }
     },
     {
       "test": "Donation Validation (Negative Amount)",
       "success": true,
       "message": "Correctly rejected negative amount: Validation failed: Donation amount must be positive",
-      "timestamp": "2025-08-16T12:06:51.160826",
+      "timestamp": "2025-08-16T12:07:49.198236",
       "response_data": {
         "success": false,
         "transaction_hash": null,
         "message": "Validation failed: Donation amount must be positive",
         "amount": -1.0,
-        "timestamp": "2025-08-16T12:06:51.157420"
+        "timestamp": "2025-08-16T12:07:49.195349"
       }
     },
     {
       "test": "Donation Validation (Invalid Address)",
       "success": false,
       "message": "HTTP 403: {\"detail\":\"Donor address must match authenticated wallet\"}",
-      "timestamp": "2025-08-16T12:06:51.189342",
+      "timestamp": "2025-08-16T12:07:49.230723",
       "response_data": null
     },
     {
       "test": "Donation Stats",
       "success": true,
       "message": "Stats retrieved - Total: 0.0 MON, Count: 0",
-      "timestamp": "2025-08-16T12:06:51.708588",
+      "timestamp": "2025-08-16T12:07:49.750405",
       "response_data": {
         "total_donations": 0.0,
         "donation_count": 0,
@@ -279,29 +279,23 @@
     },
     {
       "test": "Donation Status Check",
-      "success": true,
-      "message": "Status check working - TX: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef, Status: pending",
-      "timestamp": "2025-08-16T12:06:52.228387",
-      "response_data": {
-        "transaction_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
-        "blockchain_status": {
-          "status": "pending",
-          "mock_mode": true,
-          "message": "Mock transaction status - would check blockchain in production"
-        },
-        "donation": null
-      }
+      "success": false,
+      "message": "HTTP 500: Internal Server Error",
+      "timestamp": "2025-08-16T12:07:50.299630",
+      "response_data": null
     },
     {
       "test": "Donation Confirmation",
-      "success": false,
-      "message": "Missing expected confirmation fields",
-      "timestamp": "2025-08-16T12:06:52.757077",
+      "success": true,
+      "message": "Confirmation endpoint working - Success: True, TX: 0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+      "timestamp": "2025-08-16T12:07:50.828868",
       "response_data": {
-        "success": false,
-        "error": "Collection.update_one() got an unexpected keyword argument 'sort'"
+        "success": true,
+        "transaction_hash": "0x1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
+        "status": "pending",
+        "message": "Donation transaction submitted successfully"
       }
     }
   ],
-  "timestamp": "2025-08-16T12:06:53.257712"
+  "timestamp": "2025-08-16T12:07:51.329505"
 }
