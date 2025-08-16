@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test the MoanGem backend API thoroughly including health check, authentication, games, score submission, leaderboards, challenges, and platform stats"
+user_problem_statement: "Implement Monad Testnet wallet integration for the MoanGem gaming platform with MetaMask connection, network switching, balance display, and signature verification"
 
 backend:
   - task: "Health Check API"
