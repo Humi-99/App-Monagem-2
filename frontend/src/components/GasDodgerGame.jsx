@@ -506,27 +506,51 @@ const GasDodgerGame = ({ onBack, game }) => {
                     className="relative bg-gradient-to-b from-blue-900 to-purple-900 border-2 border-[#836EF9]/50 rounded-lg overflow-hidden"
                     style={{ width: GAME_WIDTH, height: GAME_HEIGHT }}
                   >
-                    {/* Player with effects */}
+                    {/* Player Character - Cute Spiky Friend! */}
                     <div
-                      className={`absolute rounded-full shadow-lg transition-all duration-75 ${
-                        invulnerable ? 'animate-pulse bg-green-400' : 'bg-[#836EF9]'
-                      } ${boost ? 'ring-4 ring-orange-400' : ''}`}
+                      className={`absolute transition-all duration-75 ${
+                        invulnerable ? 'animate-pulse' : ''
+                      } ${boost ? 'animate-bounce' : ''}`}
                       style={{
-                        width: PLAYER_SIZE,
-                        height: PLAYER_SIZE,
-                        left: player.x,
-                        top: player.y,
-                        boxShadow: invulnerable 
-                          ? '0 0 20px #10b981' 
-                          : boost 
-                            ? '0 0 15px #f59e0b'
-                            : '0 0 10px #836EF9',
+                        width: PLAYER_SIZE + 5,
+                        height: PLAYER_SIZE + 5,
+                        left: player.x - 2.5,
+                        top: player.y - 2.5,
                         transform: boost ? 'scale(1.2)' : 'scale(1)',
-                        zIndex: 10
+                        zIndex: 10,
+                        filter: invulnerable 
+                          ? 'drop-shadow(0 0 10px #10b981) hue-rotate(120deg)' 
+                          : boost 
+                            ? 'drop-shadow(0 0 8px #f59e0b) brightness(1.2)'
+                            : 'drop-shadow(0 0 5px rgba(0,0,0,0.5))'
                       }}
                     >
+                      <img 
+                        src="https://customer-assets.emergentagent.com/job_vercel-404-fix/artifacts/3h53ylf2_image.png"
+                        alt="Player Character"
+                        className="w-full h-full object-contain"
+                        style={{
+                          imageRendering: 'pixelated',
+                          transform: keysPressed.current['ArrowLeft'] ? 'scaleX(-1)' : 'scaleX(1)'
+                        }}
+                      />
+                      
+                      {/* Boost effect ring */}
                       {boost && (
-                        <div className="absolute -inset-2 bg-orange-400 rounded-full animate-ping opacity-25"></div>
+                        <div className="absolute inset-0 border-2 border-orange-400 rounded-full animate-ping opacity-60"></div>
+                      )}
+                      
+                      {/* Shield effect */}
+                      {invulnerable && (
+                        <div className="absolute inset-0 border-2 border-green-400 rounded-full animate-pulse opacity-80"></div>
+                      )}
+                      
+                      {/* Speed trail effect */}
+                      {speed > 8 && (
+                        <div 
+                          className="absolute w-full h-1 bg-gradient-to-r from-transparent via-purple-400 to-transparent opacity-60"
+                          style={{ top: '50%', left: '-10px', width: 'calc(100% + 20px)' }}
+                        ></div>
                       )}
                     </div>
 
