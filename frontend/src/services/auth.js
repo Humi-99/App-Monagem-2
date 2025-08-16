@@ -2,11 +2,12 @@ import api from './api';
 
 class AuthService {
   // Connect wallet and authenticate
-  async connectWallet(walletAddress, signature = null) {
+  async connectWallet(walletAddress, signature = null, message = null) {
     try {
       const response = await api.post('/auth/connect-wallet', {
         address: walletAddress,
-        signature: signature
+        signature: signature,
+        message: message
       });
       
       const { user, token } = response.data;
