@@ -448,7 +448,7 @@ const GasDodgerGame = ({ onBack, game }) => {
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white text-2xl">Gas-Free Dodger ⚡</CardTitle>
+                  <CardTitle className="text-white text-2xl">Spiky's Gas-Free Adventure ⚡</CardTitle>
                   <div className="flex items-center space-x-3">
                     <span className="text-[#FBFAF9] font-semibold text-lg">Score: {score.toLocaleString()}</span>
                     <Badge className="bg-[#A0055D] text-white">
