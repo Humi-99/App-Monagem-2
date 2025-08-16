@@ -598,18 +598,24 @@ const GasDodgerGame = ({ onBack, game }) => {
                     {gameOver && (
                       <div className="absolute inset-0 bg-black/70 flex items-center justify-center rounded-lg">
                         <div className="text-center space-y-4">
-                          <h3 className="text-white text-2xl font-bold">Game Over!</h3>
-                          <p className="text-[#FBFAF9]">Final Score: {score}</p>
-                          <p className="text-[#A0055D]">ETH Points Earned: {Math.floor(score / 5)}</p>
+                          <h3 className="text-white text-3xl font-bold">Game Over! 💀</h3>
+                          <div className="space-y-2">
+                            <p className="text-[#FBFAF9] text-xl">Final Score: {score.toLocaleString()}</p>
+                            <p className="text-[#A0055D] text-lg">ETH Points Earned: {Math.floor(score / 20)}</p>
+                            <p className="text-yellow-400 text-lg">Max Combo: {maxCombo} 🔥</p>
+                            {score > highScore && (
+                              <p className="text-green-400 text-xl font-bold animate-bounce">🏆 NEW HIGH SCORE! 🏆</p>
+                            )}
+                          </div>
                           {isSubmittingScore && (
                             <p className="text-[#836EF9]">Submitting score...</p>
                           )}
                           <Button
                             onClick={resetGame}
                             disabled={isSubmittingScore}
-                            className="bg-[#836EF9] hover:bg-[#836EF9]/80 text-white"
+                            className="bg-gradient-to-r from-[#836EF9] to-[#A0055D] hover:from-[#836EF9]/80 hover:to-[#A0055D]/80 text-white text-lg px-8 py-3"
                           >
-                            <RotateCcw className="w-4 h-4 mr-2" />
+                            <RotateCcw className="w-5 h-5 mr-2" />
                             Play Again
                           </Button>
                           {!isAuthenticated && (
