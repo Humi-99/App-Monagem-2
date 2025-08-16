@@ -6,6 +6,9 @@ from typing import Optional
 import os
 from models import User
 from database import Database
+from eth_account.messages import encode_defunct
+from eth_account import Account
+import re
 
 # JWT Configuration
 JWT_SECRET = os.environ.get('JWT_SECRET', 'moangem-secret-key-2024')
