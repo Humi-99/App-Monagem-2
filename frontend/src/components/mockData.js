@@ -37,7 +37,7 @@ export const mockGames = [
   {
     id: 2,
     name: "Gas-Free Dodger",
-    description: "Avoid obstacles in this fast-paced dodging game with crypto themes",
+    description: "Help Spiky dodge obstacles in this fast-paced adventure with crypto rewards",
     category: "Arcade",
     thumbnail: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=300&fit=crop",
     playCount: 892,
