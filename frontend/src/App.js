@@ -27,6 +27,8 @@ const Home = () => {
   const [challenges, setChallenges] = useState([]);
   const [platformStats, setPlatformStats] = useState({});
   const [loading, setLoading] = useState(true);
+  const auth = useAuth();
+  const wallet = useWallet();
 
   // Load data on component mount
   useEffect(() => {
