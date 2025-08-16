@@ -678,23 +678,29 @@ const SnakeGame = ({ onBack, game }) => {
 
           {/* Game Info */}
           <div className="space-y-6">
-            {/* Controls */}
+            {/* Controls & Features */}
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
-                <CardTitle className="text-white">Controls</CardTitle>
+                <CardTitle className="text-white">Game Features</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-[#FBFAF9]">
                 <div className="flex justify-between">
-                  <span>Move:</span>
+                  <span>Move Snake:</span>
                   <span>Arrow Keys</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Pause:</span>
                   <span>Spacebar</span>
                 </div>
-                <div className="flex justify-between">
-                  <span>Objective:</span>
-                  <span>Eat yellow food</span>
+                <div className="text-sm space-y-1 mt-4">
+                  <div className="text-yellow-400">🟨 Regular Food (+10 points)</div>
+                  <div className="text-orange-400">🍎 Special Food (+30 points)</div>
+                  <div className="text-yellow-400">🟡 Golden Food (+100 + combo)</div>
+                  <div className="text-cyan-400">💎 Crystal Food (+50 + speed)</div>
+                  <div className="text-purple-400">⚡ Monad Food (+200 + 2x points)</div>
+                  <div className="text-green-400">🛡️ Shield Power-up</div>
+                  <div className="text-blue-400">⏰ Slow Time Power-up</div>
+                  <div className="text-red-400">⚠️ Obstacles (avoid!)</div>
                 </div>
               </CardContent>
             </Card>
