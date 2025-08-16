@@ -225,6 +225,33 @@ const SnakeGame = ({ onBack, game }) => {
   const moveSnake = useCallback(() => {
     if (!gameStarted || gameOver || isPaused) return;
 
+    // Update particles
+    setParticles(prev => prev
+      .map(particle => ({
+        ...particle,
+        x: particle.x + particle.vx,
+        y: particle.y + particle.vy,
+        life: particle.life - 1
+      }))
+      .filter(particle => particle.life > 0)
+    );
+
+    // Update special food timer
+    if (specialFood) {
+      setSpecialFood(prev => {
+        if (prev && prev.timeLeft > 0) {
+          return { ...prev, timeLeft: prev.timeLeft - 1 };
+        }
+        return null;
+      });
+    }
+
+    // Update power-ups timer
+    setPowerUps(prev => prev
+      .map(powerUp => ({ ...powerUp, timeLeft: powerUp.timeLeft - 1 }))
+      .filter(powerUp => powerUp.timeLeft > 0)
+    );
+
     setSnake(currentSnake => {
       const newSnake = [...currentSnake];
       const head = { x: newSnake[0].x + direction.x, y: newSnake[0].y + direction.y };
@@ -236,14 +263,11 @@ const SnakeGame = ({ onBack, game }) => {
           setHighScore(finalScore);
         }
         
-        // Calculate game duration
         const duration = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
         
-        // Submit score if user is authenticated
         if (isAuthenticated && finalScore > 0) {
           submitScore(finalScore, duration);
         } else {
-          // Award tokens locally for non-authenticated users
           const earnedTokens = Math.floor(finalScore / 10);
           setTokens(prev => prev + earnedTokens);
         }
@@ -253,17 +277,99 @@ const SnakeGame = ({ onBack, game }) => {
 
       newSnake.unshift(head);
 
-      // Check if food is eaten
+      let foodEaten = false;
+      let pointsEarned = 0;
+
+      // Check regular food collision
       if (head.x === food.x && head.y === food.y) {
+        foodEaten = true;
+        pointsEarned = food.type === 'special' ? 30 : 10;
         setFood(generateFood());
-        setScore(prev => prev + 10);
-      } else {
+        createParticle(head.x, head.y, '#fbbf24', 8);
+        
+        // Generate special items
+        generateSpecialFood();
+        generatePowerUp();
+        generateObstacles();
+      }
+
+      // Check special food collision
+      if (specialFood && head.x === specialFood.x && head.y === specialFood.y) {
+        foodEaten = true;
+        switch (specialFood.type) {
+          case 'golden':
+            pointsEarned += 100;
+            setCombo(prev => prev + 5);
+            break;
+          case 'crystal':
+            pointsEarned += 50;
+            setGameSpeed(prev => Math.max(prev - 10, 80));
+            break;
+          case 'monad':
+            pointsEarned += 200;
+            setDoublePoints(true);
+            setTimeout(() => setDoublePoints(false), 5000);
+            break;
+        }
+        createParticle(head.x, head.y, '#8b5cf6', 15);
+        setSpecialFood(null);
+      }
+
+      // Check power-up collision
+      setPowerUps(currentPowerUps => {
+        const collidedPowerUp = currentPowerUps.find(pu => pu.x === head.x && pu.y === head.y);
+        if (collidedPowerUp) {
+          createParticle(head.x, head.y, '#10b981', 12);
+          switch (collidedPowerUp.type) {
+            case 'shield':
+              setInvulnerable(true);
+              setTimeout(() => setInvulnerable(false), 3000);
+              break;
+            case 'double':
+              setDoublePoints(true);
+              setTimeout(() => setDoublePoints(false), 5000);
+              break;
+            case 'slow':
+              setGameSpeed(prev => prev + 50);
+              setTimeout(() => setGameSpeed(prev => Math.max(prev - 50, 80)), 4000);
+              break;
+          }
+          return currentPowerUps.filter(pu => pu.id !== collidedPowerUp.id);
+        }
+        return currentPowerUps;
+      });
+
+      // Apply scoring
+      if (pointsEarned > 0) {
+        const finalPoints = doublePoints ? pointsEarned * 2 : pointsEarned;
+        const comboBonus = Math.floor(finalPoints * combo * 0.1);
+        setScore(prev => prev + finalPoints + comboBonus);
+        setCombo(prev => {
+          const newCombo = prev + 1;
+          if (newCombo > maxCombo) setMaxCombo(newCombo);
+          return newCombo;
+        });
+
+        // Level up system
+        if (score > 0 && score % 500 === 0) {
+          setLevel(prev => prev + 1);
+          setGameSpeed(prev => Math.max(prev - 15, 60));
+          createParticle(head.x, head.y, '#f59e0b', 20);
+        }
+      }
+
+      if (!foodEaten) {
         newSnake.pop();
       }
 
       return newSnake;
     });
-  }, [gameStarted, gameOver, isPaused, direction, food, score, highScore, checkCollision, generateFood]);
+  }, [
+    gameStarted, gameOver, isPaused, direction, food, specialFood, 
+    score, highScore, gameStartTime, isAuthenticated, checkCollision, 
+    generateFood, generateSpecialFood, generatePowerUp, generateObstacles,
+    createParticle, doublePoints, combo, maxCombo, submitScore
+  ]);
 
   // Game loop
   useEffect(() => {
