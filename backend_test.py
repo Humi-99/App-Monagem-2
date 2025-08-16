@@ -119,12 +119,16 @@ class MoanGemAPITester:
             
             response = requests.post(f"{self.base_url}/auth/connect-wallet", json=wallet_data)
             
-            # Should reject malformed address
+            # Should reject malformed address - but current implementation doesn't validate for legacy auth
             if response.status_code == 400 or response.status_code == 401:
                 self.log_test("Invalid Address Test", True, f"Correctly rejected malformed address (HTTP {response.status_code})", {"status": response.status_code})
                 return True
+            elif response.status_code == 200:
+                # Current implementation accepts invalid addresses for legacy auth - this is a security issue
+                self.log_test("Invalid Address Test", False, f"SECURITY ISSUE: Malformed address accepted in legacy auth mode", {"status": response.status_code, "security_issue": True})
+                return False
             else:
-                self.log_test("Invalid Address Test", False, f"Should have rejected malformed address but got HTTP {response.status_code}")
+                self.log_test("Invalid Address Test", False, f"Unexpected HTTP {response.status_code}: {response.text}")
                 return False
         except Exception as e:
             self.log_test("Invalid Address Test", False, f"Error: {str(e)}")
@@ -141,12 +145,16 @@ class MoanGemAPITester:
             
             response = requests.post(f"{self.base_url}/auth/connect-wallet", json=wallet_data)
             
-            # Should reject empty signature
+            # Should reject empty signature - but current implementation doesn't check for legacy auth
             if response.status_code == 400 or response.status_code == 401:
                 self.log_test("Empty Signature Test", True, f"Correctly rejected empty signature (HTTP {response.status_code})", {"status": response.status_code})
                 return True
+            elif response.status_code == 200:
+                # Current implementation accepts empty signatures - this is a security issue
+                self.log_test("Empty Signature Test", False, f"SECURITY ISSUE: Empty signature accepted", {"status": response.status_code, "security_issue": True})
+                return False
             else:
-                self.log_test("Empty Signature Test", False, f"Should have rejected empty signature but got HTTP {response.status_code}")
+                self.log_test("Empty Signature Test", False, f"Unexpected HTTP {response.status_code}: {response.text}")
                 return False
         except Exception as e:
             self.log_test("Empty Signature Test", False, f"Error: {str(e)}")
