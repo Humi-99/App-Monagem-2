@@ -149,6 +149,14 @@ class DonationService:
     def get_transaction_status(self, tx_hash: str) -> Dict[str, Any]:
         """Get the status of a transaction"""
         try:
+            if self.mock_mode:
+                # Return mock transaction status for testing
+                return {
+                    "status": "pending",
+                    "mock_mode": True,
+                    "message": "Mock transaction status - would check blockchain in production"
+                }
+            
             # Try to get transaction receipt
             receipt = self.w3.eth.get_transaction_receipt(tx_hash)
             
@@ -166,8 +174,9 @@ class DonationService:
         except Exception as e:
             # Transaction might be pending or not found
             try:
-                # Check if transaction exists (pending)
-                self.w3.eth.get_transaction(tx_hash)
+                if not self.mock_mode:
+                    # Check if transaction exists (pending)
+                    self.w3.eth.get_transaction(tx_hash)
                 return {"status": "pending"}
             except Exception:
                 return {"status": "not_found", "error": "Transaction not found"}
