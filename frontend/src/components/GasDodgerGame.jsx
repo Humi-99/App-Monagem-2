@@ -188,60 +188,152 @@ const GasDodgerGame = ({ onBack, game }) => {
   const updateGame = useCallback(() => {
     if (!gameStarted || gameOver || isPaused) return;
 
+    // Update particles
+    setParticles(prev => prev
+      .map(particle => ({
+        ...particle,
+        x: particle.x + particle.vx,
+        y: particle.y + particle.vy,
+        life: particle.life - 1
+      }))
+      .filter(particle => particle.life > 0)
+    );
+
+    // Update obstacles with improved physics
     setObstacles(prev => {
       const newObstacles = prev
         .map(obstacle => ({
           ...obstacle,
-          y: obstacle.y + speed
+          y: obstacle.y + (speed * (boost ? 0.5 : 1)), // Slower when boosted for easier dodging
+          rotation: obstacle.rotation + obstacle.rotationSpeed
         }))
-        .filter(obstacle => obstacle.y < GAME_HEIGHT);
+        .filter(obstacle => obstacle.y < GAME_HEIGHT + 50);
 
-      // Add new obstacles randomly
-      if (Math.random() < 0.02 + (speed / 1000)) { // Increase spawn rate with speed
+      // More dynamic obstacle spawning
+      const spawnChance = 0.04 + (speed / 500);
+      if (Math.random() < spawnChance) {
         newObstacles.push(generateObstacle());
       }
 
       return newObstacles;
     });
 
-    // Update score and speed
-    setScore(prev => {
-      const newScore = prev + 1;
-      // Increase speed every 500 points
-      if (newScore % 500 === 0) {
-        setSpeed(prevSpeed => Math.min(prevSpeed + 0.5, 8));
+    // Update power-ups
+    setPowerUps(prev => {
+      const newPowerUps = prev
+        .map(powerUp => ({
+          ...powerUp,
+          y: powerUp.y + speed * 0.8,
+          pulse: powerUp.pulse + 0.2
+        }))
+        .filter(powerUp => powerUp.y < GAME_HEIGHT + 30);
+
+      // Spawn power-ups less frequently but more impactfully
+      if (Math.random() < 0.008 + (score / 50000)) {
+        newPowerUps.push(generatePowerUp());
       }
+
+      return newPowerUps;
+    });
+
+    // Much better scoring system with combos
+    setScore(prev => {
+      const basePoints = 5 + Math.floor(speed);
+      const comboMultiplier = 1 + (combo * 0.1);
+      const speedBonus = Math.floor(speed / 2);
+      const newScore = prev + Math.floor((basePoints + speedBonus) * comboMultiplier);
+      
+      // Increase speed more frequently for excitement
+      if (newScore % 200 === 0 && newScore > 0) {
+        setSpeed(prevSpeed => Math.min(prevSpeed + 0.8, 15));
+        createParticle(GAME_WIDTH / 2, GAME_HEIGHT / 2, '#f59e0b', 10);
+      }
+      
       return newScore;
     });
 
-    // Check collisions
+    // Increase combo for surviving
+    setCombo(prev => {
+      const newCombo = prev + 1;
+      if (newCombo > maxCombo) {
+        setMaxCombo(newCombo);
+      }
+      return newCombo;
+    });
+
+    // Check obstacle collisions
     setObstacles(currentObstacles => {
       for (let obstacle of currentObstacles) {
         if (checkCollision(player, obstacle)) {
-          setGameOver(true);
-          const finalScore = score;
-          if (finalScore > highScore) {
-            setHighScore(finalScore);
-          }
-          
-          // Calculate game duration
-          const duration = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
-          
-          // Submit score if user is authenticated
-          if (isAuthenticated && finalScore > 0) {
-            submitScore(finalScore, duration);
+          if (invulnerable) {
+            // Destroy obstacle and award bonus points
+            setScore(prev => prev + obstacle.points * 2);
+            createParticle(obstacle.x + OBSTACLE_WIDTH/2, obstacle.y + OBSTACLE_HEIGHT/2, obstacle.color, 8);
+            return currentObstacles.filter(o => o.id !== obstacle.id);
           } else {
-            // Award tokens locally for non-authenticated users
-            const earnedTokens = Math.floor(finalScore / 5);
-            setTokens(prev => prev + earnedTokens);
+            // Take damage
+            setLives(prev => {
+              const newLives = prev - 1;
+              if (newLives <= 0) {
+                setGameOver(true);
+                const finalScore = score;
+                if (finalScore > highScore) {
+                  setHighScore(finalScore);
+                }
+                
+                const duration = gameStartTime ? Math.floor((Date.now() - gameStartTime) / 1000) : 0;
+                
+                if (isAuthenticated && finalScore > 0) {
+                  submitScore(finalScore, duration);
+                } else {
+                  const earnedTokens = Math.floor(finalScore / 20);
+                  setTokens(prev => prev + earnedTokens);
+                }
+              } else {
+                // Flash screen and reset combo
+                setCombo(0);
+                setInvulnerable(true);
+                setTimeout(() => setInvulnerable(false), 2000);
+                createParticle(player.x, player.y, '#ef4444', 15);
+              }
+              return newLives;
+            });
+            return currentObstacles.filter(o => o.id !== obstacle.id);
           }
-          
-          break;
         }
       }
       return currentObstacles;
     });
-  }, [gameStarted, gameOver, isPaused, speed, player, score, highScore, gameStartTime, isAuthenticated, checkCollision, generateObstacle, submitScore]);
+
+    // Check power-up collisions
+    setPowerUps(currentPowerUps => {
+      for (let powerUp of currentPowerUps) {
+        if (checkCollision(player, powerUp)) {
+          createParticle(powerUp.x + 15, powerUp.y + 15, powerUp.color, 10);
+          
+          switch (powerUp.type) {
+            case 'shield':
+              setInvulnerable(true);
+              setTimeout(() => setInvulnerable(false), powerUp.duration);
+              break;
+            case 'boost':
+              setBoost(true);
+              setTimeout(() => setBoost(false), powerUp.duration);
+              break;
+            case 'life':
+              setLives(prev => Math.min(prev + 1, 5));
+              break;
+            case 'points':
+              setScore(prev => prev + 500 + (combo * 50));
+              break;
+          }
+          
+          return currentPowerUps.filter(p => p.id !== powerUp.id);
+        }
+      }
+      return currentPowerUps;
+    });
+  }, [gameStarted, gameOver, isPaused, speed, boost, player, score, combo, maxCombo, highScore, gameStartTime, isAuthenticated, invulnerable, checkCollision, generateObstacle, generatePowerUp, submitScore, createParticle]);
 
   // Game loop
   useEffect(() => {
