@@ -12,6 +12,7 @@ from typing import List, Optional
 from models import *
 from database import Database
 from auth import get_current_user, authenticate_wallet
+from donations import DonationService
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
