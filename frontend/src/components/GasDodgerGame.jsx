@@ -622,7 +622,7 @@ const GasDodgerGame = ({ onBack, game }) => {
                     {gameOver && (
                       <div className="absolute inset-0 bg-black/70 flex items-center justify-center rounded-lg">
                         <div className="text-center space-y-4">
-                          <h3 className="text-white text-3xl font-bold">Game Over! 💀</h3>
+                          <h3 className="text-white text-3xl font-bold">Spiky got caught! 😵</h3>
                           <div className="space-y-2">
                             <p className="text-[#FBFAF9] text-xl">Final Score: {score.toLocaleString()}</p>
                             <p className="text-[#A0055D] text-lg">ETH Points Earned: {Math.floor(score / 20)}</p>
@@ -640,7 +640,7 @@ const GasDodgerGame = ({ onBack, game }) => {
                             className="bg-gradient-to-r from-[#836EF9] to-[#A0055D] hover:from-[#836EF9]/80 hover:to-[#A0055D]/80 text-white text-lg px-8 py-3"
                           >
                             <RotateCcw className="w-5 h-5 mr-2" />
-                            Play Again
+                            Help Spiky Try Again!
                           </Button>
                           {!isAuthenticated && (
                             <div className="mt-4 p-3 bg-[#836EF9]/20 rounded-lg">
