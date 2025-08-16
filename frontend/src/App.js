@@ -432,6 +432,16 @@ const Home = () => {
                     {parseFloat(wallet.balance).toFixed(4)} MON
                   </Badge>
                 </div>
+                <div className="mt-6">
+                  <Button 
+                    onClick={handleViewDonations}
+                    variant="outline"
+                    className="bg-white text-[#836EF9] hover:bg-gray-100 border-white"
+                  >
+                    <Heart className="w-4 h-4 mr-2" />
+                    Support the Platform
+                  </Button>
+                </div>
               </>
             ) : (
               <>
