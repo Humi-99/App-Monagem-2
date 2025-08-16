@@ -201,15 +201,26 @@ const SnakeGame = ({ onBack, game }) => {
       return true;
     }
     
-    // Self collision
-    for (let segment of snakeArray) {
-      if (head.x === segment.x && head.y === segment.y) {
-        return true;
+    // Self collision (but not if invulnerable)
+    if (!invulnerable) {
+      for (let segment of snakeArray) {
+        if (head.x === segment.x && head.y === segment.y) {
+          return true;
+        }
+      }
+    }
+    
+    // Obstacle collision (but not if invulnerable)
+    if (!invulnerable) {
+      for (let obstacle of obstacles) {
+        if (head.x === obstacle.x && head.y === obstacle.y) {
+          return true;
+        }
       }
     }
     
     return false;
-  }, []);
+  }, [invulnerable, obstacles]);
 
   const moveSnake = useCallback(() => {
     if (!gameStarted || gameOver || isPaused) return;
