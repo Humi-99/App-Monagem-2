@@ -105,17 +105,41 @@
 user_problem_statement: "Implement Monad Testnet wallet integration for the MoanGem gaming platform with MetaMask connection, network switching, balance display, and signature verification"
 
 backend:
-  - task: "Health Check API"
+  - task: "Monad Testnet Configuration"
     implemented: true
-    working: true
-    file: "/app/backend/server.py"
+    working: "pending_test"
+    file: "/app/frontend/src/utils/wallet.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
-        - working: true
-          agent: "testing"
-          comment: "Health check endpoint (GET /api/) working perfectly. Returns correct API status and version information."
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented Monad Testnet configuration with Chain ID 10143, RPC URL https://dev0x-rpc.monad.xyz, and proper network parameters"
+
+  - task: "MetaMask Wallet Integration"
+    implemented: true
+    working: "pending_test"
+    file: "/app/frontend/src/contexts/WalletContext.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented comprehensive MetaMask integration with wallet connection, network switching, balance tracking, and event listeners"
+
+  - task: "Wallet Signature Verification"
+    implemented: true
+    working: "pending_test"
+    file: "/app/backend/auth.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented proper cryptographic signature verification using eth_account library for secure wallet authentication"
 
   - task: "Wallet Authentication"
     implemented: true
