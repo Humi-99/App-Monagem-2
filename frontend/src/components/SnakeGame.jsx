@@ -178,11 +178,21 @@ const SnakeGame = ({ onBack, game }) => {
   const resetGame = useCallback(() => {
     setSnake(INITIAL_SNAKE);
     setFood(INITIAL_FOOD);
+    setSpecialFood(null);
+    setPowerUps([]);
+    setObstacles([]);
+    setParticles([]);
     setDirection(INITIAL_DIRECTION);
     setGameStarted(false);
     setGameOver(false);
     setScore(0);
     setIsPaused(false);
+    setGameSpeed(200);
+    setCombo(0);
+    setMaxCombo(0);
+    setInvulnerable(false);
+    setDoublePoints(false);
+    setLevel(1);
   }, []);
 
   const checkCollision = useCallback((head, snakeArray) => {
