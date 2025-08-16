@@ -7,15 +7,17 @@ import { useAuth } from '../contexts/AuthContext';
 import gamesService from '../services/games';
 import { useToast } from '../hooks/use-toast';
 
-const GAME_WIDTH = 500;
-const GAME_HEIGHT = 500;
-const PLAYER_SIZE = 20;
-const OBSTACLE_WIDTH = 40;
-const OBSTACLE_HEIGHT = 60;
+const GAME_WIDTH = 600;
+const GAME_HEIGHT = 600;
+const PLAYER_SIZE = 25;
+const OBSTACLE_WIDTH = 45;
+const OBSTACLE_HEIGHT = 45;
 
 const GasDodgerGame = ({ onBack, game }) => {
-  const [player, setPlayer] = useState({ x: GAME_WIDTH / 2 - PLAYER_SIZE / 2, y: GAME_HEIGHT - 50 });
+  const [player, setPlayer] = useState({ x: GAME_WIDTH / 2 - PLAYER_SIZE / 2, y: GAME_HEIGHT - 60 });
   const [obstacles, setObstacles] = useState([]);
+  const [powerUps, setPowerUps] = useState([]);
+  const [particles, setParticles] = useState([]);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
@@ -24,7 +26,12 @@ const GasDodgerGame = ({ onBack, game }) => {
   const [tokens, setTokens] = useState(0);
   const [gameStartTime, setGameStartTime] = useState(null);
   const [isSubmittingScore, setIsSubmittingScore] = useState(false);
-  const [speed, setSpeed] = useState(2);
+  const [speed, setSpeed] = useState(4);
+  const [combo, setCombo] = useState(0);
+  const [maxCombo, setMaxCombo] = useState(0);
+  const [invulnerable, setInvulnerable] = useState(false);
+  const [boost, setBoost] = useState(false);
+  const [lives, setLives] = useState(3);
   const gameLoopRef = useRef();
   const keysPressed = useRef({});
   
