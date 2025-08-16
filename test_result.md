@@ -105,6 +105,54 @@
 user_problem_statement: "Implement MON token donation system that integrates with smart contract at 0xC443647582B1484f9Aba3A6C0B98df59918E17e2 on Monad Testnet. The contract will automatically transfer donated MON tokens to the specified receive address."
 
 backend:
+  - task: "Donation API Endpoints"
+    implemented: true
+    working: "pending_test"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented complete donation API with endpoints for creating donations, confirming transactions, checking status, getting stats, and estimating gas fees"
+
+  - task: "Web3 Smart Contract Integration"
+    implemented: true
+    working: "pending_test"
+    file: "/app/backend/donations.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Implemented DonationService class with Web3 integration for Monad Testnet, transaction building, gas estimation, and contract interaction"
+
+  - task: "Donation Database Operations"
+    implemented: true
+    working: "pending_test"
+    file: "/app/backend/database.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Added donation database methods for creating, updating, and querying donations with statistics aggregation"
+
+  - task: "Donation Data Models"
+    implemented: true
+    working: "pending_test"
+    file: "/app/backend/models.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "pending_test"
+          agent: "main"
+          comment: "Added Pydantic models for donation requests, responses, and statistics with proper validation"
+
   - task: "Monad Testnet Configuration"
     implemented: true
     working: "pending_test"
