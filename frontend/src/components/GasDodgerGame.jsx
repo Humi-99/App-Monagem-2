@@ -448,13 +448,54 @@ const GasDodgerGame = ({ onBack, game }) => {
             <Card className="bg-[#200052]/50 border-[#836EF9]/30">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white text-2xl">Gas-Free Dodger</CardTitle>
-                  <div className="flex items-center space-x-4">
-                    <span className="text-[#FBFAF9] font-semibold">Score: {score}</span>
+                  <CardTitle className="text-white text-2xl">Gas-Free Dodger ⚡</CardTitle>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-[#FBFAF9] font-semibold text-lg">Score: {score.toLocaleString()}</span>
                     <Badge className="bg-[#A0055D] text-white">
                       <Zap className="w-3 h-3 mr-1" />
                       Speed: {speed.toFixed(1)}x
                     </Badge>
+                    {combo > 10 && (
+                      <Badge className="bg-yellow-500 text-black font-bold animate-pulse">
+                        🔥 COMBO: {combo}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                
+                {/* Status Bar */}
+                <div className="flex items-center justify-between mt-2">
+                  <div className="flex items-center space-x-2">
+                    {/* Lives */}
+                    <div className="flex items-center space-x-1">
+                      <span className="text-[#FBFAF9] text-sm">Lives:</span>
+                      {[...Array(5)].map((_, i) => (
+                        <div
+                          key={i}
+                          className={`w-3 h-3 rounded-full ${
+                            i < lives ? 'bg-red-500' : 'bg-gray-600'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    
+                    {/* Power-up status */}
+                    <div className="flex space-x-2">
+                      {invulnerable && (
+                        <Badge className="bg-green-500 text-white text-xs animate-pulse">
+                          🛡️ SHIELD
+                        </Badge>
+                      )}
+                      {boost && (
+                        <Badge className="bg-orange-500 text-white text-xs animate-pulse">
+                          🚀 BOOST
+                        </Badge>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="text-right text-sm text-[#FBFAF9]">
+                    <div>Max Combo: {maxCombo}</div>
                   </div>
                 </div>
               </CardHeader>
