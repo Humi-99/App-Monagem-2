@@ -67,6 +67,17 @@ const Header = ({ onWalletConnect, onProfileClick }) => {
                 <Badge variant="secondary" className="bg-[#A0055D] text-white">
                   Level {user.level || 1}
                 </Badge>
+                {wallet.isConnected && (
+                  <>
+                    <div className="w-px h-4 bg-[#836EF9]/50"></div>
+                    <div className="flex items-center space-x-1">
+                      <Network className={`w-3 h-3 ${wallet.isOnMonadTestnet ? 'text-green-400' : 'text-orange-400'}`} />
+                      <span className="text-xs text-[#FBFAF9]">
+                        {parseFloat(wallet.balance).toFixed(2)} MON
+                      </span>
+                    </div>
+                  </>
+                )}
               </Card>
             )}
 
