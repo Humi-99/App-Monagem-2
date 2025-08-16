@@ -360,7 +360,7 @@ const GasDodgerGame = ({ onBack, game }) => {
     };
   }, []);
 
-  // Update player position with improved movement
+  // Update player position with improved movement for our spiky character
   useEffect(() => {
     const movePlayer = () => {
       if (!gameStarted || gameOver || isPaused) return;
@@ -368,7 +368,7 @@ const GasDodgerGame = ({ onBack, game }) => {
       setPlayer(prev => {
         let newX = prev.x;
         let newY = prev.y;
-        const moveSpeed = boost ? 8 : 6; // Faster movement
+        const moveSpeed = boost ? 9 : 7; // Faster movement for better control
 
         if (keysPressed.current['ArrowLeft'] && newX > 0) {
           newX -= moveSpeed;
@@ -376,11 +376,16 @@ const GasDodgerGame = ({ onBack, game }) => {
         if (keysPressed.current['ArrowRight'] && newX < GAME_WIDTH - PLAYER_SIZE) {
           newX += moveSpeed;
         }
-        if (keysPressed.current['ArrowUp'] && newY > GAME_HEIGHT * 0.4) {
-          newY -= moveSpeed * 0.5;
+        if (keysPressed.current['ArrowUp'] && newY > GAME_HEIGHT * 0.3) {
+          newY -= moveSpeed * 0.6;
         }
-        if (keysPressed.current['ArrowDown'] && newY < GAME_HEIGHT - PLAYER_SIZE) {
-          newY += moveSpeed * 0.5;
+        if (keysPressed.current['ArrowDown'] && newY < GAME_HEIGHT - PLAYER_SIZE - 5) {
+          newY += moveSpeed * 0.6;
+        }
+
+        // Add movement particles for Spiky when moving fast
+        if ((Math.abs(newX - prev.x) > 4 || Math.abs(newY - prev.y) > 3) && Math.random() < 0.3) {
+          createParticle(prev.x + PLAYER_SIZE/2, prev.y + PLAYER_SIZE, '#836EF9', 2);
         }
 
         return { x: newX, y: newY };
@@ -389,7 +394,7 @@ const GasDodgerGame = ({ onBack, game }) => {
 
     const moveInterval = setInterval(movePlayer, 16);
     return () => clearInterval(moveInterval);
-  }, [gameStarted, gameOver, isPaused, boost]);
+  }, [gameStarted, gameOver, isPaused, boost, createParticle]);
 
   // Keyboard controls for pause and space
   useEffect(() => {
