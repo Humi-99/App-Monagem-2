@@ -360,14 +360,15 @@ const GasDodgerGame = ({ onBack, game }) => {
     };
   }, []);
 
-  // Update player position based on keys pressed
+  // Update player position with improved movement
   useEffect(() => {
     const movePlayer = () => {
       if (!gameStarted || gameOver || isPaused) return;
 
       setPlayer(prev => {
         let newX = prev.x;
-        const moveSpeed = 5;
+        let newY = prev.y;
+        const moveSpeed = boost ? 8 : 6; // Faster movement
 
         if (keysPressed.current['ArrowLeft'] && newX > 0) {
           newX -= moveSpeed;
@@ -375,14 +376,20 @@ const GasDodgerGame = ({ onBack, game }) => {
         if (keysPressed.current['ArrowRight'] && newX < GAME_WIDTH - PLAYER_SIZE) {
           newX += moveSpeed;
         }
+        if (keysPressed.current['ArrowUp'] && newY > GAME_HEIGHT * 0.4) {
+          newY -= moveSpeed * 0.5;
+        }
+        if (keysPressed.current['ArrowDown'] && newY < GAME_HEIGHT - PLAYER_SIZE) {
+          newY += moveSpeed * 0.5;
+        }
 
-        return { ...prev, x: newX };
+        return { x: newX, y: newY };
       });
     };
 
     const moveInterval = setInterval(movePlayer, 16);
     return () => clearInterval(moveInterval);
-  }, [gameStarted, gameOver, isPaused]);
+  }, [gameStarted, gameOver, isPaused, boost]);
 
   // Keyboard controls for pause and space
   useEffect(() => {
