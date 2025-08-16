@@ -284,6 +284,77 @@ async def activate_game(game_id: str, db: Database = Depends(get_database)):
     else:
         return {"success": False, "message": "Game not found or already active"}
 
+# Donation Routes
+@api_router.post("/donations/create", response_model=DonationResponse)
+async def create_donation(
+    donation_request: DonationRequest,
+    current_user: User = Depends(get_current_user),
+    db: Database = Depends(get_database)
+):
+    """Create a new donation"""
+    donation_service = DonationService()
+    
+    # Verify the donor address matches the authenticated user
+    if donation_request.donor_address.lower() != current_user.wallet_address.lower():
+        raise HTTPException(
+            status_code=403, 
+            detail="Donor address must match authenticated wallet"
+        )
+    
+    return await donation_service.process_donation(donation_request, db)
+
+@api_router.post("/donations/confirm/{tx_hash}")
+async def confirm_donation(
+    tx_hash: str,
+    current_user: User = Depends(get_current_user),
+    db: Database = Depends(get_database)
+):
+    """Confirm a donation transaction"""
+    donation_service = DonationService()
+    return await donation_service.confirm_donation(tx_hash, db)
+
+@api_router.get("/donations/status/{tx_hash}")
+async def get_donation_status(
+    tx_hash: str,
+    db: Database = Depends(get_database)
+):
+    """Get donation transaction status"""
+    donation_service = DonationService()
+    
+    # Get transaction status from blockchain
+    status_info = donation_service.get_transaction_status(tx_hash)
+    
+    # Update database if confirmed
+    if status_info.get("status") == "confirmed":
+        await db.update_donation_status(tx_hash, "confirmed")
+    elif status_info.get("status") == "failed":
+        await db.update_donation_status(tx_hash, "failed")
+    
+    # Get donation details
+    donation = await db.get_donation_by_tx(tx_hash)
+    
+    return {
+        "transaction_hash": tx_hash,
+        "blockchain_status": status_info,
+        "donation": donation
+    }
+
+@api_router.get("/donations/stats", response_model=DonationStats)
+async def get_donation_stats(db: Database = Depends(get_database)):
+    """Get donation statistics"""
+    stats = await db.get_donations_stats()
+    return DonationStats(**stats)
+
+@api_router.get("/donations/estimate-gas")
+async def estimate_donation_gas(
+    amount: float,
+    donor_address: str
+):
+    """Estimate gas fees for a donation"""
+    donation_service = DonationService()
+    amount_wei = Web3.to_wei(amount, 'ether')
+    return await donation_service.estimate_gas_and_fees(donor_address, amount_wei)
+
 # Include the router in the main app
 app.include_router(api_router)
 
